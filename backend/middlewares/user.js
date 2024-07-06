@@ -15,18 +15,28 @@ function userAuthMiddleware(req, res, next) {
         next()
     }
     catch (e) {
-        res.json({"msg": "Authentication failed!"})
+        res.json({"msg": "Authentication failed !"})
     }
 
 }
 
 async function userSignup(req, res, next) {
 
-    const { email } = req.body
-    const response = await User.findOne({
+    const { email, username } = req.body
+    const emailResponse = await User.findOne({
         email
     })
-    response ? res.json({"msg": "Email is already registered!"}) : next()
+    const usernameResponse = await User.findOne({
+        username
+    })
+
+    if (emailResponse) {
+        res.json({"msg": "Email is already registered !"})
+    } else if (usernameResponse) {
+        res.json({"msg": "Username is already taken !"})
+    } else {
+        next()
+    }
 
 }
 
@@ -52,7 +62,7 @@ function userSchemaValidation(req, res, next) {
     })
 
     response.success ? next() : res.json({
-        "msg": "Wrong Inputs"
+        "msg": "Invalid Inputs Submitted !"
     })
 
 }

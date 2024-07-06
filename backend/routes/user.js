@@ -33,6 +33,15 @@ router.post("/signin", userSignin, (req, res) => {
 router.use(userAuthMiddleware)
 // All routes below will use this middleware 
 
+router.get("/pageauthcheck", (req, res) => {
+    res.json({msg: "Allowed"})
+})
+
+router.post("/studio", (req, res) => {
+    const prompt = req.body.prompt
+    console.log(prompt)
+    res.json({msg: "Welcome to studio"})
+})
 
 
 module.exports = router
