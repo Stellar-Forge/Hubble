@@ -7,14 +7,32 @@ import {
     Input
   } from "@material-tailwind/react";
 
-import React from "react";
+import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { selectedModelAtom } from "../../store/atoms/selectedModelAtom";
+import axios from "axios";
  
 export function OutputCard() {
 
-  const [inputPrompt, setInputPrompt] = React.useState("");
+  const [inputPrompt, setInputPrompt] = useState("");
+  const [response, setResponse] = useState("")
   const onChange = ({ target }) => setInputPrompt(target.value);
+
+  async function sendPrompt(inputPrompt) {
+
+    const res = await axios({
+      method: "post",
+      url: "http://localhost:3000/user/studio",
+      headers: {
+        authorization: localStorage.getItem("jwtToken"),
+        model: currentModel
+      },
+      data: {
+        "prompt": inputPrompt
+      }
+    })
+    setResponse(res.data.msg)
+  }
 
   const currentModel = useRecoilValue(selectedModelAtom)
 
@@ -25,9 +43,7 @@ export function OutputCard() {
           {currentModel}
         </Typography>
         <Typography>
-          The place is close to Barceloneta Beach and bus stop just 2 min by
-          walk and near to &quot;Naviglio&quot; where you can enjoy the main
-          night life in Barcelona.
+          {response}
         </Typography>
       </CardBody>
       <CardFooter className="pt-0">
@@ -42,6 +58,7 @@ export function OutputCard() {
           }}
           />
           <Button
+              onClick={() => sendPrompt(inputPrompt)}
               size="sm"
               color={inputPrompt ? "gray" : "blue-gray"}
               disabled={!inputPrompt}
