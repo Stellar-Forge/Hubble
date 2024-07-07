@@ -12,12 +12,15 @@ import {
 import { useRef, useState } from "react";
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { usernameAtom } from "../store/atoms/userAtom";
    
 export function LoginCard() {
 
   const usernameInput = useRef()
   const passwordInput = useRef()
   const [response, setResponse] = useState("")
+  const setUsernameAtomValue = useSetRecoilState(usernameAtom)
   const navigate = useNavigate()
   
   async function sendData() {
@@ -33,6 +36,7 @@ export function LoginCard() {
       })
     
     if (res.data.token) {
+      setUsernameAtomValue(res.data.username)
       navigate("/studio")
       localStorage.setItem("jwtToken", res.data.token)
     } else {

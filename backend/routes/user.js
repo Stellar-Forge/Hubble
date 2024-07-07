@@ -26,7 +26,10 @@ router.post("/signin", userSignin, (req, res) => {
     const username = req.body.username
     const token = jwt.sign({username}, JWT_SECRET)
 
-    res.json({token})
+    res.json({
+        token,
+        username
+    })
 
 })
 

@@ -26,34 +26,39 @@ import {
   Bars2Icon,
 } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { usernameAtom } from "../store/atoms/userAtom";
  
-// profile menu component
-const profileMenuItems = [
-  {
-    label: "My Profile",
-    icon: UserCircleIcon,
-  },
-  {
-    label: "Edit Profile",
-    icon: Cog6ToothIcon,
-  },
-  {
-    label: "Inbox",
-    icon: InboxArrowDownIcon,
-  },
-  {
-    label: "Help",
-    icon: LifebuoyIcon,
-  },
-  {
-    label: "Log Out",
-    icon: PowerIcon,
-  },
-];
 
-
- 
 function ProfileMenu() {
+  
+  const usernameAtomValue = useRecoilValue(usernameAtom)
+
+  // profile menu component
+  const profileMenuItems = [
+    {
+      label: `${usernameAtomValue}`,
+      icon: UserCircleIcon,
+    },
+    {
+      label: "Edit Profile",
+      icon: Cog6ToothIcon,
+    },
+    {
+      label: "Inbox",
+      icon: InboxArrowDownIcon,
+    },
+    {
+      label: "Help",
+      icon: LifebuoyIcon,
+    },
+    {
+      label: "Log Out",
+      icon: PowerIcon,
+    },
+  ];
+
+
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
  
   const closeMenu = () => setIsMenuOpen(false);
