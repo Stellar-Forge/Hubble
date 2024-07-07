@@ -14,9 +14,12 @@ import {
   PlusCircleIcon
 } from "@heroicons/react/24/solid";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import { useSetRecoilState } from "recoil";
+import { currentWorkspaceAtom } from "../../store/atoms/workspaceAtom";
  
 export function Sidebar() {
   const [open, setOpen] = React.useState(0);  
+  const setCurrentWorkspaceAtom = useSetRecoilState(currentWorkspaceAtom)
  
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
@@ -30,17 +33,23 @@ export function Sidebar() {
         </Typography>
       </div>
       <List>
-        <ListItem>
+        <ListItem onClick={()=> setCurrentWorkspaceAtom(1)}>
           <ListItemPrefix>
             <InboxIcon className="h-5 w-5" />
           </ListItemPrefix>
           Workspace 1
         </ListItem>
-        <ListItem>
+        <ListItem onClick={()=> setCurrentWorkspaceAtom(2)}>
           <ListItemPrefix>
             <InboxIcon className="h-5 w-5" />
           </ListItemPrefix>
           Workspace 2
+        </ListItem>
+        <ListItem onClick={()=> setCurrentWorkspaceAtom(3)}>
+          <ListItemPrefix>
+            <InboxIcon className="h-5 w-5" />
+          </ListItemPrefix>
+          Workspace 3
         </ListItem>
         <ListItem>
           <ListItemPrefix>
@@ -56,12 +65,6 @@ export function Sidebar() {
             <Cog6ToothIcon className="h-5 w-5" />
           </ListItemPrefix>
           Editor
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <PowerIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Log Out
         </ListItem>
       </List>
     </Card>

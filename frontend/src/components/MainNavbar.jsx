@@ -68,6 +68,10 @@ function ProfileMenu() {
     localStorage.setItem("jwtToken", "")
     navigate("/login")
   }
+
+  function editProfile() {
+    navigate("/profile")
+  }
  
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -98,7 +102,14 @@ function ProfileMenu() {
           return (
             <MenuItem
               key={label}
-              onClick={() => { (label=="Log Out") ? logout() : closeMenu()}}
+              onClick={() => {
+                if (label=="Log Out") {
+                  logout()
+                } else if (label=="Edit Profile") {
+                  editProfile()
+                } else {
+                  closeMenu()
+                }}}
               className={`flex items-center gap-2 rounded ${
                 isLastItem
                   ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
@@ -258,8 +269,8 @@ export function MainNavbar() {
       <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
         <Typography
           as="a"
-          href="#"
-          className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
+          href="/studio"
+          className="mr-4 ml-2 cursor-pointer py-1.5 font-black"
         >
           Hubble
         </Typography>

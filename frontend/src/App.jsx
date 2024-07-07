@@ -6,6 +6,8 @@ import { RecoilRoot } from 'recoil';
 import { Footer } from './components/Footer';
 import { Studio } from './pages/Studio';
 import { Suspense } from 'react';
+import EditProfile from './pages/EditProfile';
+import { EditCredential } from './pages/EditCredential';
 
 function App() {
 
@@ -18,6 +20,8 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
             <Route path='/studio' element={<Studio />} />
+            <Route path='/profile' element={<EditProfile />} />
+            <Route path='/update' element={<EditCredential />} />
           </Routes>
         </Suspense>
         <br />
