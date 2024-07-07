@@ -25,6 +25,7 @@ import {
   RocketLaunchIcon,
   Bars2Icon,
 } from "@heroicons/react/24/solid";
+import { useNavigate } from "react-router-dom";
  
 // profile menu component
 const profileMenuItems = [
@@ -45,15 +46,23 @@ const profileMenuItems = [
     icon: LifebuoyIcon,
   },
   {
-    label: "Sign Out",
+    label: "Log Out",
     icon: PowerIcon,
   },
 ];
+
+
  
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
  
   const closeMenu = () => setIsMenuOpen(false);
+  const navigate = useNavigate()
+
+  function logout() {
+    localStorage.setItem("jwtToken", "")
+    navigate("/login")
+  }
  
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -84,7 +93,7 @@ function ProfileMenu() {
           return (
             <MenuItem
               key={label}
-              onClick={closeMenu}
+              onClick={() => { (label=="Log Out") ? logout() : closeMenu()}}
               className={`flex items-center gap-2 rounded ${
                 isLastItem
                   ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
