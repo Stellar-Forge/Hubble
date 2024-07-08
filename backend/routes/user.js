@@ -106,4 +106,22 @@ router.post("/workspace", async (req, res) => {
     res.json({msg: `Workspace Updated ! Info: output-${output}, model-${model}, workspace no-${currentworkspace}, username-${username}`})
 })
 
+router.delete("/deleteaccount", async (req, res) => {
+    const { email, password } = req.body
+    const username = req.headers.username
+
+    const result = await User.findOne({
+        username
+    })
+
+    if (result.email == email && result.password == password) {
+        await User.findOneAndDelete({ username });
+        await Workspace.deleteMany({ username })
+        res.json({msg: "Account Deleted"})
+
+    } else {
+        res.json({msg: `Wrong Inputs`})
+    }
+})
+
 module.exports = router

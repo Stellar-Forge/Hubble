@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 // @material-tailwind/react
 import {
@@ -9,7 +9,11 @@ import {
   Popover,
   PopoverHandler,
   PopoverContent,
-  Button
+  Button,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter
 } from "@material-tailwind/react";
 
 // day picker
@@ -23,9 +27,14 @@ import { useNavigate } from "react-router-dom";
 // @heroicons/react
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { MainNavbar } from "../components/MainNavbar";
+import axios from "axios";
 
 function EditProfile() {
     const [date, setDate] = React.useState();
+
+    const emailRef = useRef()
+    const passwordRef = useRef()
+    const wrongInputRef = useRef()
 
     useEffect(()=>{
         authTrigger(c => c+1)
@@ -35,10 +44,99 @@ function EditProfile() {
     const authTrigger = useSetRecoilState(jwtAuthTrigger)
     const authStatus = useRecoilValue(jwtAuthAtom)
 
+    const [open, setOpen] = React.useState(false);
+    const [open2, setOpen2] = React.useState(false);
+    const handleOpen = () => setOpen(!open);
+
+    async function deleteAccount() {
+        const res = await axios({
+            method: "delete",
+            url: "http://localhost:3000/user/deleteaccount",
+            headers: {authorization: localStorage.getItem("jwtToken")},
+            data: {
+                email: emailRef.current.children[0].value,
+                password: passwordRef.current.children[0].value
+            }
+        })
+        
+        if (res.data.msg == "Account Deleted") {
+            localStorage.setItem("jwtToken", "")
+            setOpen2(true)
+            handleOpen()
+        } else {
+            wrongInputRef.current.innerHTML = "Wrong Credentials Submitted !"
+        }
+        
+        
+    }
+
     if (authStatus == "Allowed") {
         return (
             <div>
             <MainNavbar /><br/>
+            <Dialog open={open} size="xs" handler={handleOpen}>
+                <div className="flex items-center justify-between">
+                <DialogHeader className="flex flex-col items-start">
+                    {" "}
+                    <Typography className="mb-1" variant="h4">
+                    Delete Your Account{" "}
+                    </Typography>
+                </DialogHeader>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="mr-3 h-5 w-5"
+                    onClick={handleOpen}
+                >
+                    <path
+                    fillRule="evenodd"
+                    d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
+                    clipRule="evenodd"
+                    />
+                </svg>
+                </div>
+                <DialogBody>
+                <Typography className="mb-10 -mt-7 " color="gray" variant="h7">
+                    Enter your Email and Password to Delete your Account
+                </Typography>
+                <Typography ref={wrongInputRef} className="mb-10 -mt-7 " color="red" variant="h6" />
+                <div className="grid gap-6">
+                    <Typography className="-mb-1" color="blue-gray" variant="h6">
+                    Email
+                    </Typography>
+                    <Input ref={emailRef} label="Email" />
+                    <Typography className="-mb-1" color="blue-gray" variant="h6">
+                    Password
+                    </Typography>
+                    <Input ref={passwordRef} label="Password" />
+                </div>
+                </DialogBody>
+                <DialogFooter className="space-x-2">
+                <Button variant="text" color="gray" onClick={handleOpen}>
+                    Cancel
+                </Button>
+                <Button variant="gradient" color="red" onClick={() => {
+                    deleteAccount()
+                    }}>
+                    Confirm Delete
+                </Button>
+                </DialogFooter>
+            </Dialog>
+            <Dialog open={open2}>
+                <DialogHeader>Your Account Has Been Deleted Successfully !</DialogHeader>
+                <DialogBody>
+                    Please Signup Again If You Want To Continue Using Hubble
+                    </DialogBody>
+                <DialogFooter>
+                <Button variant="gradient" color="green" onClick={() => {
+                    setOpen2(false)
+                    navigate("/signup")
+                    }}>
+                    <span>Confirm</span>
+                </Button>
+                </DialogFooter>
+            </Dialog>
             <section className="px-8 py-20 container mx-auto">
             <Typography variant="h5" color="blue-gray">
                 Basic Information
@@ -356,9 +454,14 @@ function EditProfile() {
                 
                 </div>
                 <br />  
-                <div>  
-                    <Button className="m-5">Submit</Button>
-                    <Button className="m-5" onClick={() => navigate("/update")}>Change Password</Button>
+                <div className="flex justify-between">
+                    <div>
+                        <Button>Submit</Button>
+                        <Button className="m-5" onClick={() => navigate("/update")}>Change Password</Button>
+                    </div>
+                    <div>
+                        <Button color="red" onClick={handleOpen}>Delete Account</Button>
+                    </div>
                 </div>
             </section>
             </div>
