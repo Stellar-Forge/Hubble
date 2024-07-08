@@ -43,7 +43,10 @@ export function EditCredential() {
             }
         })
         
-        setResponse(res.data.msg)
+        if (res.data.msg == "Password Updated Successfully"){
+          navigate("/login")
+        } 
+        setResponse(res.data.msg) 
     }
 
     if (authStatus == "Allowed") {

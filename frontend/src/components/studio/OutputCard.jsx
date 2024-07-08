@@ -11,11 +11,18 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { selectedModelAtom } from "../../store/atoms/selectedModelAtom";
 import axios from "axios";
+import { currentWorkspaceAtom } from "../../store/atoms/workspaceAtom";
  
 export function OutputCard() {
 
   const [inputPrompt, setInputPrompt] = useState("");
-  const [response, setResponse] = useState("")
+  const [response, setResponse] = useState([[],[],[]])
+  const [workspaceUpdateResponse, setWorkspaceUpdateResponse] = useState("")
+
+  const currentWorkspace = useRecoilValue(currentWorkspaceAtom)
+  const currentModels = useRecoilValue(selectedModelAtom)
+  const currentModel = currentModels[currentWorkspace-1]
+
   const onChange = ({ target }) => setInputPrompt(target.value);
 
   async function sendPrompt(inputPrompt) {
@@ -31,11 +38,46 @@ export function OutputCard() {
         "prompt": inputPrompt
       }
     })
-    setResponse(res.data.msg)
+
+    setInputPrompt("")
+
+    setResponse(resArr => {
+      let newCurrentArr = [...resArr[currentWorkspace-1], res.data.msg]
+      let newTotalArr = [...resArr]
+      newTotalArr[currentWorkspace-1] = newCurrentArr
+      return newTotalArr
+    })
+
   }
 
-  const currentModel = useRecoilValue(selectedModelAtom)
 
+  async function saveWorkspace() {
+
+    const res = await axios({
+      method: "post",
+      url: "http://localhost:3000/user/workspace",
+      headers: {
+        authorization: localStorage.getItem("jwtToken"),
+      },
+      data: {
+        model: currentModel,
+        currentworkspace: currentWorkspace,
+        output: saveCurrentWorkspaceOutput
+      }
+    })
+    
+    setResponse(arr => {
+      let newArr = [...arr]
+      newArr[currentWorkspace-1] = []
+      return newArr
+    })
+    saveCurrentWorkspaceOutput = ""
+    setWorkspaceUpdateResponse(res.data.msg)
+  }
+
+  const currentWorkspaceOutput = response[currentWorkspace-1]
+  let saveCurrentWorkspaceOutput = ""
+  currentWorkspaceOutput.map(e => saveCurrentWorkspaceOutput+=e+", ")
   return (
     <Card className="mt-6 w-96">
       <CardBody>
@@ -43,7 +85,7 @@ export function OutputCard() {
           {currentModel}
         </Typography>
         <Typography>
-          {response}
+          {currentWorkspaceOutput.map(e => <Typography>{e}</Typography>)}
         </Typography>
       </CardBody>
       <CardFooter className="pt-0">
@@ -66,6 +108,13 @@ export function OutputCard() {
               Enter
           </Button>
           </div>
+          <Button
+              onClick={() => saveWorkspace(response)}
+              size="sm"
+              color={"blue-gray"}
+              className="!absolute right-1 top-1 rounded">
+              Save
+          </Button>
       </CardFooter>
     </Card>
   );

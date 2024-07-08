@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Card,
   Typography,
@@ -14,13 +14,20 @@ import {
   PlusCircleIcon
 } from "@heroicons/react/24/solid";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { currentWorkspaceAtom } from "../../store/atoms/workspaceAtom";
+import { useNavigate } from "react-router-dom";
  
 export function Sidebar() {
   const [open, setOpen] = React.useState(0);  
+  const navigate = useNavigate()
+
   const setCurrentWorkspaceAtom = useSetRecoilState(currentWorkspaceAtom)
+  const currentWorkspaceValue = useRecoilValue(currentWorkspaceAtom)
  
+  useEffect(() => {
+    navigate(`/studio/${currentWorkspaceValue}`)
+  }, [currentWorkspaceValue])
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
   };

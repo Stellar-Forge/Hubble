@@ -11,7 +11,14 @@ const UserSchema = new mongoose.Schema({
     password: String
 })
 
+const WorkspaceSchema = new mongoose.Schema({
+    username: String,
+    currentWorkspace: Number,
+    model: String,
+    output: [String]
+})
 
 const User = mongoose.model("User", UserSchema)
+const Workspace = mongoose.model("Workspace", WorkspaceSchema)
 
-module.exports = { User } 
+module.exports = { User, Workspace } 

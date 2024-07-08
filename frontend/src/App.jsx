@@ -22,6 +22,9 @@ function App() {
             <Route path='/studio' element={<Studio />} />
             <Route path='/profile' element={<EditProfile />} />
             <Route path='/update' element={<EditCredential />} />
+            <Route path='/studio/1' element={<Studio />} />
+            <Route path='/studio/2' element={<Studio />} />
+            <Route path='/studio/3' element={<Studio />} />
           </Routes>
         </Suspense>
         <br />
@@ -32,3 +35,5 @@ function App() {
 }
 
 export default App
+
+{/* <Sidebar/><OutputCard/> */}
