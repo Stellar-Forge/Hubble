@@ -2,8 +2,29 @@
 
 import prisma from "@repo/prisma/client"
 import bcrypt from "bcrypt";
+import { signupSchema } from "../zod-schema/userAuthSchema"
 
-export async function signup(username: string, email: string, password: string) {
+interface SignupParams {
+    username: string,
+    email: string,
+    password: string
+}
+
+function inputValidation({username, email, password} : SignupParams ) {
+    const res = signupSchema.safeParse({username, email, password})
+    return res.success
+}
+
+export async function signup({username, email, password} : SignupParams) {
+
+    const res = inputValidation({username, email, password})
+    if (!res) {
+        return {
+            msg: "Wrong Inputs",
+            success: false
+        }
+    }
+
     try {
         const hashedPassword = await bcrypt.hash(password, 10)
         const user = await prisma.user.create({
@@ -13,8 +34,14 @@ export async function signup(username: string, email: string, password: string) 
                 password: hashedPassword
             }
         })
-        return JSON.stringify(user)
+        return {
+            msg: "Congrats! You're Signed Up. Please Login To Enter The App",
+            success: true
+        }
     } catch(e) {
-        return false
+        return {
+            msg: "User Already Exists",
+            success: false
+        }
     }
 }
