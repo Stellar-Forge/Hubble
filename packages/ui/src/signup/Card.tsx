@@ -1,4 +1,3 @@
-
 import { ChangeEventHandler, useState } from "react";
 import { Button } from "./Button";
 
@@ -24,13 +23,13 @@ export function Card({ onSignIn }: CardProps) {
                     <div className="pt-2">
                         <LabelledInput onChange={(e) => {
                             setUsername(e.target.value);
-                        }} label="Username" placeholder="harkirat@gmail.com" />
+                        }} label="Username" placeholder="Username" />
                         <LabelledInput onChange={(e) => {
                             setEmail(e.target.value);
-                        }} label="Email" placeholder="harkirat@gmail.com" />
+                        }} label="Email" placeholder="Email" />
                         <LabelledInput onChange={(e) => {
                             setPassword(e.target.value)
-                        }} label="Password" type={"password"} placeholder="123456" />
+                        }} label="Password" type={"password"} placeholder="Password" />
                         <Button username={username} email={email} password={password} onSignIn={onSignIn}/>
                     </div>
                 </div>

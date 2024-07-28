@@ -1,5 +1,3 @@
-"use client"
-
 import { signup } from "../../../actions/user";
 
 interface UserParams {
@@ -11,12 +9,12 @@ interface UserParams {
 
 export function Button({username, email, password, onSignIn} : UserParams) {
     return <button onClick={async () => {
-        const res = await signup(username, email, password)
-        if (res) {
-            alert("Congrats! You're Signed Up. Please Login To Enter The App")
+        const res = await signup({username, email, password})
+        if (res.success) {
+            alert(res.msg)
             onSignIn()
         } else {
-            alert("Error occured while signing up!")
+            alert(res.msg)
         }
     
         console.log(`This is the client receiving the response: ${res}`)

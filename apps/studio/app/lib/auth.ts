@@ -2,6 +2,17 @@ import prisma from "@repo/prisma/client";
 import CredentialsProvider from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcrypt";
+import { signinSchema } from "../../../../packages/zod-schema/userAuthSchema";
+
+interface SigninParams {
+  username: string,
+  password: string
+}
+
+function inputValidation({username, password} : SigninParams ) {
+  const res = signinSchema.safeParse({username, password})
+  return res.success
+}
 
 export const authOptions = {
     providers: [
@@ -13,7 +24,16 @@ export const authOptions = {
           },
           // TODO: User credentials type from next-aut
           async authorize(credentials: any) {
-            // Do zod validation, OTP validation here
+
+            const res = inputValidation({
+              username: credentials.username,
+              password: credentials.password
+            })
+            
+            if (!res) {
+              return null
+            }
+            
             const existingUser = await prisma.user.findFirst({
                 where: {
                     username: credentials.username
