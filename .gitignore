@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # Dependencies
@@ -37,7 +36,6 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
-=======
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # Dependencies
@@ -76,4 +74,3 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
->>>>>>> hubble-react-dev/development
