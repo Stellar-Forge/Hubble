@@ -1,11 +1,56 @@
+"use client"
+
+import { useSession } from "next-auth/react"
+import { useWorkspace } from "@repo/store/useWorkspace";
+import { useUpdateWorkspace } from "@repo/store/useUpdateWorkspace";
+import React, { useState } from "react";
+import axios from "axios";
+import { redirect } from "next/navigation";
+
 export default function ({params} : any) {
 
-    const workspaceId = params.workspaceId[0]
+  const { data: session, status } = useSession()
+  if (!(status === "authenticated")) {
+    redirect("/api/auth/signin")
+  }
 
-    console.log(workspaceId)
-    return <>
-        This is workspace {workspaceId}
-    </>
+  const [input, setInput] = useState("")
+  const updateWorkspace = useUpdateWorkspace()
+  
+  const workspace = useWorkspace()
+  const workspaceId = params.workspaceId[0]
+
+  async function sendPrompt(input: string) {
+    const res = await axios({
+      url: "http://localhost:3301/api/v1/gemini/prompt",
+      method: "POST",
+      data: {
+        query: {
+          prompt: input
+        }
+      },
+    })
+    console.log(res.data)
+    
+    updateWorkspace(workspaceId, res.data.response.promptResult)
+  }
+
+  const currentWorkspace = workspace[workspaceId]
+  console.log(`THE Current Workspace IS: ${currentWorkspace}`)
+
+  console.log(workspaceId)
+  return <div>
+    <br/>Prompt:<br/><br/>
+    <input value={input} type="text" placeholder=" Prompt" className="bg-zinc-300 rounded-sm" onChange={(e: any) => setInput(e.target.value)} /><br/><br/>
+    <button className="bg-zinc-300 rounded-md" onClick={() => sendPrompt(input)}>Submit</button><br/><br/>
+    Workspace: {currentWorkspace?.map((e, index) => (
+      <React.Fragment key={index}>
+        <br/>
+        {e}
+        <br/>
+      </React.Fragment>
+    ))}
+  </div>
 }   
 
 
