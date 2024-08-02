@@ -26,6 +26,10 @@ export const authOptions = {
           // TODO: User credentials type from next-aut
           async authorize(credentials: any) {
 
+            if (!credentials?.username || !credentials?.password) {
+              return null;
+            }
+
             const res = inputValidation({
               username: credentials.username,
               password: credentials.password
@@ -41,23 +45,17 @@ export const authOptions = {
                 }
             });
 
-            if (existingUser) {
-                console.log("Existing user")
-                console.log(credentials.password)
-                console.log(existingUser.password)
-                const passwordValidation = await bcrypt.compare(credentials.password, existingUser.password);
-                if (passwordValidation) {
-                    console.log("Pass valid")
+            if (!existingUser) {
+              return null;
+            }
 
-                    return {
-                        id: existingUser.id.toString(),
-                        name: existingUser.username,
-                        email: existingUser.email
-                    }
-                }
-                console.log("Pass Invalid")
-
-                return null;
+            const passwordValidation = await bcrypt.compare(credentials.password, existingUser.password);
+            if (passwordValidation) {
+              return {
+                id: existingUser.id.toString(),
+                name: existingUser.username,
+                email: existingUser.email
+              };
             }
             return null
           },
@@ -78,7 +76,9 @@ export const authOptions = {
     callbacks: {
         // TODO: fix the type here
         async session({ token, session }: any) {
-            session.user.id = token.sub
+            if (session.user) {
+              session.user.id = token.sub!;
+            }
 
             return session
         },
@@ -94,4 +94,3 @@ export const authOptions = {
           }
     }
   }
- 

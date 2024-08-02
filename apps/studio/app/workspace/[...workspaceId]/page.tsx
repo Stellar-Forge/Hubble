@@ -6,10 +6,13 @@ import { useUpdateWorkspace } from "@repo/store/useUpdateWorkspace";
 import React, { useState } from "react";
 import axios from "axios";
 import { redirect } from "next/navigation";
+import { saveResult } from "../../../../../packages/actions/saveResult";
 
 export default function ({params} : any) {
 
   const { data: session, status } = useSession()
+  const userId = Number(session?.user?.id)
+  console.log(`The used id: ${userId}`)
   if (!(status === "authenticated")) {
     redirect("/api/auth/signin")
   }
@@ -40,9 +43,21 @@ export default function ({params} : any) {
 
   console.log(workspaceId)
   return <div>
-    <br/>Prompt:<br/><br/>
-    <input value={input} type="text" placeholder=" Prompt" className="bg-zinc-300 rounded-sm" onChange={(e: any) => setInput(e.target.value)} /><br/><br/>
-    <button className="bg-zinc-300 rounded-md" onClick={() => sendPrompt(input)}>Submit</button><br/><br/>
+    <br/>Prompt:
+    <input value={input} type="text" placeholder=" Prompt" className="bg-zinc-300 rounded-sm m-5" onChange={(e: any) => setInput(e.target.value)} />
+    <button className="bg-zinc-300 rounded-md m-5" onClick={() => sendPrompt(input)}>Submit</button>
+    <button className="bg-zinc-300 rounded-md" onClick={
+      async () => {
+        const totalHistory = currentWorkspace?.join("!@#$%^&*()")
+        const res = await saveResult(totalHistory, Number(workspaceId), userId)
+        if (!res) {
+          alert("Some Error Occured during Saving!")
+        } else {
+        alert("Response History Saved Successfully")
+        }
+      }
+    }>Save</button>
+    <br/>
     Workspace: {currentWorkspace?.map((e, index) => (
       <React.Fragment key={index}>
         <br/>
