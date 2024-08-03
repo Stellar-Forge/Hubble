@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react"
 import { useWorkspace } from "@repo/store/useWorkspace";
 import { useUpdateWorkspace } from "@repo/store/useUpdateWorkspace";
+import { useClearHistory } from "@repo/store/useClearHistory";
 import React, { useState } from "react";
 import axios from "axios";
 import { redirect } from "next/navigation";
@@ -19,9 +20,11 @@ export default function ({params} : any) {
 
   const [input, setInput] = useState("")
   const updateWorkspace = useUpdateWorkspace()
+  const clearHistory = useClearHistory()
   
   const workspace = useWorkspace()
-  const workspaceId = params.workspaceId[0]
+  const workspaceId = Number(params.workspaceId[0])
+  let currentWorkspace = workspace[workspaceId]
 
   async function sendPrompt(input: string) {
     const res = await axios({
@@ -38,7 +41,6 @@ export default function ({params} : any) {
     updateWorkspace(workspaceId, res.data.response.promptResult)
   }
 
-  const currentWorkspace = workspace[workspaceId]
   console.log(`THE Current Workspace IS: ${currentWorkspace}`)
 
   console.log(workspaceId)
@@ -49,14 +51,15 @@ export default function ({params} : any) {
     <button className="bg-zinc-300 rounded-md" onClick={
       async () => {
         const totalHistory = currentWorkspace?.join("!@#$%^&*()")
-        const res = await saveResult(totalHistory, Number(workspaceId), userId)
+        const res = await saveResult(totalHistory, workspaceId, userId)
         if (!res) {
           alert("Some Error Occured during Saving!")
         } else {
         alert("Response History Saved Successfully")
         }
       }
-    }>Save</button>
+    }>Save History</button>
+    <button className="bg-zinc-300 rounded-md m-5" onClick={() => clearHistory(workspaceId)}>Clear History</button>
     <br/>
     Workspace: {currentWorkspace?.map((e, index) => (
       <React.Fragment key={index}>
@@ -66,8 +69,4 @@ export default function ({params} : any) {
       </React.Fragment>
     ))}
   </div>
-}   
-
-
-
-
+}  
