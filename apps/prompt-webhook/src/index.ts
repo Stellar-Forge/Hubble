@@ -1,36 +1,22 @@
-import axios from "axios";
 import express from "express";
+import dotenv from "dotenv"
+import geminiRouter from "./routes/geminiRoute"
+import cors from "cors"
 
 const app = express();
+dotenv.config({path: "../.env"})
 
-const PORT = 3002
+const PORT = process.env.PORT
 const apiRoute = "/api/v1"
 
-interface GeminiResponseParams {
-    output: string,
-    error: null | string
-}
+app.use(cors())
+app.use(express.json())
+app.use(`${apiRoute}/gemini`, geminiRouter)
 
-app.post(`${apiRoute}/prompt/gemini`, async (req, res) => {
-    //TODO: Add zod validation here?
-    const { query } = req.body;
-    
-    const { prompt, apiKey } = query
-    const response : GeminiResponseParams = await axios({
-        url: "http://localhost:3301/dummygeminiapi",
-        method: "POST",
-        data: {
-            prompt, apiKey
-        }
-    })
-
+app.get("/", (req, res) => {
     res.json({
-        response: {
-            promptResult: response.output,
-            error: response.error
-        }
+        msg: "Healthy server!"
     })
-    // Update balance in db, add txn
 })
 
-app.listen(PORT, () => {`Listening on PORT ${PORT}`})
+app.listen(PORT, () => {console.log(`Listening on PORT ${PORT}`)})

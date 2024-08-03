@@ -31,7 +31,14 @@ export async function signup({username, email, password} : SignupParams) {
             data: {
                 username,
                 email,
-                password: hashedPassword
+                password: hashedPassword,
+                workspaces: {
+                    create: [
+                        {workspaceId: 1, name: "Workspace 1"},
+                        {workspaceId: 2, name: "Workspace 2"},
+                        {workspaceId: 3, name: "Workspace 3"}
+                    ]
+                }
             }
         })
         return {
