@@ -15,7 +15,7 @@ export default function ({params} : any) {
   const userId = Number(session?.user?.id)
   console.log(`The used id: ${userId}`)
   if (!(status === "authenticated")) {
-    redirect("/api/auth/signin")
+    redirect("/workspace")
   }
 
   const [input, setInput] = useState("")

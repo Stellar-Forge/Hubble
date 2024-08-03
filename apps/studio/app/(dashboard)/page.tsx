@@ -1,12 +1,9 @@
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
-import { authOptions } from "../lib/auth";
+import { checkAuth } from "../../../../packages/actions/checkAuth";
 
 export default async function Home(){
-  const session = await getServerSession(authOptions)
-  if(!(session?.user)){
-    redirect("/api/auth/signin")    
-  }
+
+  const session = await checkAuth()
+  
   console.log(session?.user)
   return (
    <div>

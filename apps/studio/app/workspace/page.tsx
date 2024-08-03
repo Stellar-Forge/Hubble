@@ -1,13 +1,10 @@
 import WorkspaceLanding from "../../components/WorkspaceLanding";
-import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
+import { checkAuth } from "../../../../packages/actions/checkAuth";
 
 export default async function() {
 
-    const session = await getServerSession()
-    if (!session?.user){
-      redirect("/api/auth/signin")
-    } 
+    await checkAuth() 
+  
     return <div>
         <WorkspaceLanding/>
     </div>
