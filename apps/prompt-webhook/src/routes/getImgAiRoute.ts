@@ -12,21 +12,27 @@ router.get("/", (req, res) => {
 router.post("/prompt", async (req, res) => {
 
     const { query } = req.body
-    const { prompt } = query
+    console.log(`The received query is: ${JSON.stringify(query)}`)
+    const { prompt, style, width, height, output_format, response_format} = query
 
     const response = await axios({
         url: "https://api.getimg.ai/v1/essential/text-to-image",
         method: "POST",
         headers: {
             'accept': 'application/json',
-            'authorization': 'Bearer key-2QtFB6URyPva2NsjtQInZDNNZ7hc0jkrfOEJheR1RDogQZBDNdbyVJna8YjYIzTh616gxS1fB540O2HZejaizGc7Cb2bKewY',
+            'authorization': 'Bearer key-UqDR6KeofDCwtqfW0twFK2yIVODUB1PDoxAV04Pi3FtB2uozzMYu02Q3GaZXFj5uggrjQJ1bzSs91iUQRZaMe496JpKJdcP',
             'content-type': 'application/json'
           },
         data: {
-            "prompt": prompt
+            prompt,
+            style,
+            width, 
+            height, 
+            output_format, 
+            response_format
         }
     })
-
+    console.log(`The Response from API: ${JSON.stringify(response.data)}`)
     res.json({
         response: response.data
     })
