@@ -13,6 +13,7 @@ export default function Layout({
                 <SidebarItem href={"/"} icon={<DashboardIcon />} title="Dashboard" />
                 <SidebarItem href={"/workspace/1"} icon={<WorkspaceIcon />} title="Workspace 1" />
                 <SidebarItem href={"/workspace/2"} icon={<WorkspaceIcon />} title="Workspace 2" />
+                <SidebarItem href={"/workspace/3"} icon={<WorkspaceIcon />} title="Workspace 3" />
                 <SidebarItem href={"/transactions"} icon={<AddWorkspaceIcon />} title="Add Workspace" />
             </div>
         </div>

@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { workspaceAtom } from "../atoms/workspace";
 
 export function useUpdateWorkspace() {
@@ -21,8 +21,22 @@ export function useUpdateWorkspace() {
     
             return WorkspaceArr
         })
-    
     }
 
     return update
 }
+
+
+export function useClearHistory () {
+    const setWorkspace = useSetRecoilState(workspaceAtom)
+
+    function clearWorkspace(workspaceId: number) {
+        setWorkspace((workspace) => {
+            let clearedWorkspace = [...workspace]
+            clearedWorkspace[workspaceId] = []
+            return clearedWorkspace
+        })
+    }
+
+    return clearWorkspace
+}   
