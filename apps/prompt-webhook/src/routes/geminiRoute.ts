@@ -1,15 +1,12 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Router } from "express";
 import dotenv from "dotenv"
-import axios from "axios";
 
 const router = Router()
 dotenv.config({path: "../.env"})
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-const prompt = "Greet me in Three words";
 
 router.get("/", (req, res) => {
     console.log("GOT HIT AT /")
