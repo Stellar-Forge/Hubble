@@ -16,6 +16,7 @@ model User {
   lastName      String?
   workspaces    Workspace[]
   histories     History[]
+  API_Keys      API_Key[]
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
 }
@@ -43,6 +44,24 @@ model History {
   createdAt   DateTime  @default(now())
 
   @@index([userId, workspaceId])
+}
+
+model API_Key {
+  id          Int       @id @default(autoincrement())
+  platform    API_Platform
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int
+  API_Key     String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@unique([userId, platform])
+}
+
+enum API_Platform {
+  Google
+  OpenAI
+  GetImgAI
 }
 
 enum AuthType {

@@ -1,14 +1,44 @@
 import axios from "axios"
 import { Router } from "express"
+import dotenv from "dotenv"
 
 const router = Router()
+dotenv.config({path: "../.env"})
 
+// Health Check Endpoint
 router.get("/", (req, res) => {
     res.json({
         msg: "Healthy GetImgAI Server!"
     })
 })
 
+// API Key Check Endpoint
+router.post("/check", async (req, res) => {
+    const { API_KEY } = req.body.query
+    try {
+        const response = await axios({
+            url: `https://api.getimg.ai/v1/models?pipeline=text-to-image`,
+            method: "GET",
+            headers: {
+                accept: "application/json",
+                authorization: `Bearer ${API_KEY}`
+            }
+        })
+        
+        res.json({
+            response: response.data,
+            success: true
+        })
+    } catch (e) {
+        res.json({
+            msg: "Some Error Occured!",
+            success: false
+        })
+    }
+    
+})
+
+// Response Generation Endpoint
 router.post("/prompt", async (req, res) => {
 
     const { query } = req.body
@@ -20,7 +50,7 @@ router.post("/prompt", async (req, res) => {
         method: "POST",
         headers: {
             'accept': 'application/json',
-            'authorization': 'Bearer key-UqDR6KeofDCwtqfW0twFK2yIVODUB1PDoxAV04Pi3FtB2uozzMYu02Q3GaZXFj5uggrjQJ1bzSs91iUQRZaMe496JpKJdcP',
+            'authorization': `Bearer ${process.env.GET_IMG_AI_API_KEY}`,
             'content-type': 'application/json'
           },
         data: {

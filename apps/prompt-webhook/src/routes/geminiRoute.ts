@@ -1,6 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Router } from "express";
 import dotenv from "dotenv"
+import axios from "axios";
 
 const router = Router()
 dotenv.config({path: "../.env"})
@@ -8,6 +9,7 @@ dotenv.config({path: "../.env"})
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
+// Health Check Endpoint
 router.get("/", (req, res) => {
     console.log("GOT HIT AT /")
     res.json({
@@ -22,6 +24,29 @@ interface QueryParams {
     prompt: string
 }
 
+// API Key Check Endpoint
+router.post("/check", async (req, res) => {
+    const { API_KEY } = req.body.query
+    try {
+        const response = await axios({
+            url: `https://generativelanguage.googleapis.com/v1beta/models/?key=${API_KEY}`,
+            method: "GET"
+        })
+
+        res.json({
+            response: response.data,
+            success: true
+        })
+    } catch (e) {
+        res.json({
+            msg: "Some Error Occured!",
+            success: false
+        })
+    }
+    
+})
+
+// Response Generation Endpoint
 router.post(`/prompt`, async (req, res) => {
     //TODO: Add zod validation here?
     const { query } = req.body;
