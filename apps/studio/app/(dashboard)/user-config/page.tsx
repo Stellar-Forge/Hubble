@@ -5,9 +5,11 @@ import { encryptApiKey } from "@repo/crypto/encryptApiKey";
 import axios from "axios";
 import { ModelItem } from "../../../components/ModelItem";
 import { saveAPIKey } from "../../../../../packages/actions/saveAPI"
+import { Loader } from "../../../components/Loader";
  
 export default function() {
     const [input, setInput] = useState("")
+    const [loading, setLoading] = useState(false)
     const [saveButtonVisible, setSaveButtonVisible] = useState(false)
     const [model, setModel] = useState("Gemini")
     const [usableModels, setUsableModels] = useState([{}])
@@ -43,8 +45,9 @@ export default function() {
             setSaveButtonVisible(false)
             }}></input>
         <button className="m-7" onClick={async () => {
-
+            setLoading(true)
             const res = await checkAPIKey(input)
+            setLoading(false)
             if (!res.success) {
                 alert("Invalid API Key!")
                 setSaveButtonVisible(false)
@@ -60,7 +63,9 @@ export default function() {
         }}>Check</button>
         {saveButtonVisible ? <button className="m-7" onClick={async () => {
             const encryptedCode = encryptApiKey(input)
+            setLoading(true)
             const res = await saveAPIKey(encryptedCode, model)
+            setLoading(false)
             if (!res) alert("Some Error Occured!")
             else alert("API Key Saved Successfully!")
             
@@ -69,6 +74,6 @@ export default function() {
         <br/><br/>
         {`Your Available Models For Current API Key: `}
         {saveButtonVisible ? usableModels.map((e: any) => <ModelItem displayName={model === "Gemini" ? e.displayName : e.name} description={model === "Gemini" ? e.description : e.family} />) : ""}
-        
+        {loading ? <Loader /> : ""}
     </div>
 }

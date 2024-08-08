@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { redirect } from "next/navigation";
 import { saveResult } from "../../../../../../packages/actions/saveResult";
 import { geminiTextPrompt } from "../../../../../../packages/actions/sendPrompt";
+import { Loader } from "../../../../components/Loader";
 
 export function TextModel({params} : any) {
 
@@ -15,6 +16,7 @@ export function TextModel({params} : any) {
     redirect("/workspace")
   }  
 
+  const [loading, setLoading] = useState(false)
   const [input, setInput] = useState("")
   const updateWorkspace = useUpdateWorkspace()
   const clearHistory = useClearHistory()
@@ -31,7 +33,9 @@ export function TextModel({params} : any) {
     <br/>Prompt:
     <input value={input} type="text" placeholder=" Prompt" className="bg-zinc-300 rounded-sm m-5" onChange={(e: any) => setInput(e.target.value)} />
     <button className="bg-zinc-300 rounded-md m-5" onClick={async () => {
+      setLoading(true)
       const res = await geminiTextPrompt(input)
+      setLoading(false)
       if (!res?.success) alert("Some Error Occured!")
       else {
         updateWorkspace(workspaceId, res.response)
@@ -40,7 +44,9 @@ export function TextModel({params} : any) {
     <button className="bg-zinc-300 rounded-md" onClick={
       async () => {
         const totalHistory = currentWorkspace?.join("!@#$%^&*()")
+        setLoading(true)
         const res = await saveResult(totalHistory, workspaceId, userId)
+        setLoading(false)
         if (!res) {
           alert("Some Error Occured during Saving!")
         } else {
@@ -57,5 +63,6 @@ export function TextModel({params} : any) {
         <br/>
       </React.Fragment>
     ))}
+    {loading ? <Loader /> : ""}
   </div>
 }  

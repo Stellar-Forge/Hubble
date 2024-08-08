@@ -11,6 +11,7 @@ import {    useUpdateWorkspaceImage,
             useUpdateWorkspaceUrl,
             useUpdateWorkspaceIsUrl } from "@repo/store/useUpdateWorkspaceImage";
 import { getImgAIPrompt } from "../../../../../../packages/actions/sendPrompt";
+import { Loader } from "../../../../components/Loader";
 
 export function ImageModel({params}: any) {
 
@@ -24,7 +25,7 @@ export function ImageModel({params}: any) {
     }
 
     const [inputPrompt, setInputPrompt] = useState("")
-
+    const [loading, setLoading] = useState(false)
     const _workspaceId = Number(params.workspaceId[0])
     const workspaceId = (_workspaceId-1)
 
@@ -81,6 +82,7 @@ export function ImageModel({params}: any) {
         Height:
         <input value={currentHeight} type="text" placeholder=" Prompt" className="bg-zinc-300 rounded-sm m-5" onChange={(e: any) => updateWorkspaceHeight(Number(e.target.value), workspaceId)} />
         <button className="bg-zinc-300 rounded-md mr-5 mb-9" onClick={async () => {
+            setLoading(true)
             const res = await getImgAIPrompt({
               prompt: inputPrompt,
               style: currentStyle,
@@ -89,6 +91,7 @@ export function ImageModel({params}: any) {
               response_format: currentResponseFormat,
               output_format: currentOutputFormat
             })
+            setLoading(false)
             if (!res?.success) alert("Some Error Occured!")
             else if (currentResponseFormat === "b64") {
               updateWorkspaceImage(res.response.image, workspaceId)
@@ -106,5 +109,6 @@ export function ImageModel({params}: any) {
         <br/>
         Workspace:<br/>
         <ImageDisplay isUrl={currentIsUrl} url={currentUrl} response_format={currentOutputFormat} base64String={currentImage}/>
+        {loading ? <Loader /> : ""}
     </div>
 }
