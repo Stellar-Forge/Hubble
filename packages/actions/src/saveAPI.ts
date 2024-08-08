@@ -1,9 +1,9 @@
 "use server"
 
 import { API_Platform } from "@prisma/client";
-import prisma from "@repo/prisma/client";
+import prisma from "@hubble/prisma/client";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../apps/studio/app/lib/auth"
+import { authOptions } from "../../../apps/studio/app/lib/auth"
 
 export async function saveAPIKey(encryptedApiKey: any, platform: string) {
     const session = await getServerSession(authOptions)

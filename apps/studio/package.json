@@ -9,10 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@repo/prisma": "*",
-    "@repo/store": "*",
-    "@repo/ui": "*",
-    "@repo/crypto": "*",
+    "@hubble/actions": "*",
+    "@hubble/prisma": "*",
+    "@hubble/store": "*",
+    "@hubble/ui": "*",
+    "@hubble/crypto": "*",
     "@types/bcrypt": "^5.0.2",
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",

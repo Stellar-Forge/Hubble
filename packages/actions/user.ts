@@ -1,6 +1,6 @@
 "use server"
 
-import prisma from "@repo/prisma/client"
+import prisma from "@hubble/prisma/client"
 import bcrypt from "bcrypt";
 import { signupSchema } from "../zod-schema/userAuthSchema"
 

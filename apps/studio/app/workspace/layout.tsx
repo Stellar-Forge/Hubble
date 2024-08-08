@@ -1,5 +1,8 @@
-import { AddWorkspaceIcon, DashboardIcon, WorkspaceIcon } from "../../components/Icons";
-import { SidebarItem } from "../../components/SidebarItemClient";
+import { DashboardIcon } from "@hubble/ui/DashboardIcon";
+import { AddWorkspaceIcon } from "@hubble/ui/AddWorkspaceIcon"
+import { WorkspaceIcon } from "@hubble/ui/WorkspaceIcon"
+
+import { SidebarItem } from "@hubble/ui/SidebarItem";
 
 export default function Layout({
   children,

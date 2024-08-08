@@ -1,4 +1,4 @@
-import prisma from "@repo/prisma/client";
+import prisma from "@hubble/prisma/client";
 import CredentialsProvider from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";

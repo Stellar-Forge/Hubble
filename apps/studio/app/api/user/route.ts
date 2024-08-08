@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import prisma from "@repo/prisma/client"
+import prisma from "@hubble/prisma/client"
 import bcrypt from "bcrypt"
 
 export const GET = async () => {

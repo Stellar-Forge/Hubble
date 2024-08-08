@@ -1,11 +1,11 @@
 "use server"
 
 import axios from "axios"
-import prisma from "@repo/prisma/client";
+import prisma from "@hubble/prisma/client";
 import { API_Platform } from "@prisma/client";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../apps/studio/app/lib/auth"
-import { decryptApiKey} from "@repo/crypto/encryptApiKey";
+import { authOptions } from "../../../apps/studio/app/lib/auth"
+import { decryptApiKey} from "@hubble/crypto/encryptApiKey";
 
 interface QueryParams {
     prompt: string,

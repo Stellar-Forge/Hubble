@@ -1,5 +1,5 @@
 {
-  "name": "@repo/crypto",
+  "name": "@hubble/crypto",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {

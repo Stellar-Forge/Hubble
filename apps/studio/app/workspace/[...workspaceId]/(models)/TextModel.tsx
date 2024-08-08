@@ -1,11 +1,11 @@
 import { useSession } from "next-auth/react"
-import { useWorkspace } from "@repo/store/useWorkspace";
-import { useUpdateWorkspace, useClearHistory } from "@repo/store/useUpdateWorkspace";
+import { useWorkspace } from "@hubble/store/useWorkspace";
+import { useUpdateWorkspace, useClearHistory } from "@hubble/store/useUpdateWorkspace";
 import React, { useState } from "react";
 import { redirect } from "next/navigation";
-import { saveResult } from "../../../../../../packages/actions/saveResult";
-import { geminiTextPrompt } from "../../../../../../packages/actions/sendPrompt";
-import { Loader } from "../../../../components/Loader";
+import { saveResult } from "@hubble/actions/saveResult";
+import { geminiTextPrompt } from "@hubble/actions/geminiTextPrompt";
+import { Loader } from "@hubble/ui/Loader";
 
 export function TextModel({params} : any) {
 

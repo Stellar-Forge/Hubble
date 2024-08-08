@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { encryptApiKey } from "@repo/crypto/encryptApiKey";
+import { encryptApiKey } from "@hubble/crypto/encryptApiKey";
 import axios from "axios";
-import { ModelItem } from "../../../components/ModelItem";
-import { saveAPIKey } from "../../../../../packages/actions/saveAPI"
-import { Loader } from "../../../components/Loader";
- 
+import { ModelItem } from "@hubble/ui/ModelItem";
+import { saveAPIKey } from "@hubble/actions/saveAPIKey"
+import { Loader } from "@hubble/ui/Loader";
+
 export default function() {
     const [input, setInput] = useState("")
     const [loading, setLoading] = useState(false)

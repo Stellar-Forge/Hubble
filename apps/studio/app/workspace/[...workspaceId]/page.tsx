@@ -1,10 +1,9 @@
 "use client"
 
-import { useUpdateSelectedModel } from "@repo/store/useUpdateSelectedModel";
-import { useSelectedModel } from "@repo/store/useSelectedModel";
+import { useUpdateSelectedModel } from "@hubble/store/useUpdateSelectedModel";
+import { useSelectedModel } from "@hubble/store/useSelectedModel";
 import { ImageModel } from "./(models)/ImageModel";
 import { TextModel } from "./(models)/TextModel";
-import { useState } from "react";
 
 export default function({params}: any) {
 

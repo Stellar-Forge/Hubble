@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { ImageDisplay } from "../../../../components/ImageDisplay"
-import { useWorkspaceImage } from "@repo/store/useWorkspaceImage";
+import { ImageDisplay } from "@hubble/ui/ImageDisplay"
+import { useWorkspaceImage } from "@hubble/store/useWorkspaceImage";
 import {    useUpdateWorkspaceImage, 
             useClearWorkspaceImage, 
             useUpdateWorkspaceStyle, 
@@ -9,9 +9,9 @@ import {    useUpdateWorkspaceImage,
             useUpdateWorkspaceWidth,
             useUpdateWorkspaceHeight,
             useUpdateWorkspaceUrl,
-            useUpdateWorkspaceIsUrl } from "@repo/store/useUpdateWorkspaceImage";
-import { getImgAIPrompt } from "../../../../../../packages/actions/sendPrompt";
-import { Loader } from "../../../../components/Loader";
+            useUpdateWorkspaceIsUrl } from "@hubble/store/useUpdateWorkspaceImage";
+import { getImgAIPrompt } from "@hubble/actions/getImgAIPrompt";
+import { Loader } from "@hubble/ui/Loader";
 
 export function ImageModel({params}: any) {
 
