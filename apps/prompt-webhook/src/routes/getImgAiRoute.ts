@@ -1,9 +1,7 @@
 import axios from "axios"
 import { Router } from "express"
-import dotenv from "dotenv"
 
 const router = Router()
-dotenv.config({path: "../.env"})
 
 // Health Check Endpoint
 router.get("/", (req, res) => {
@@ -43,14 +41,14 @@ router.post("/prompt", async (req, res) => {
 
     const { query } = req.body
     console.log(`The received query is: ${JSON.stringify(query)}`)
-    const { prompt, style, width, height, output_format, response_format} = query
+    const { prompt, style, width, height, output_format, response_format, API_KEY} = query
 
     const response = await axios({
         url: "https://api.getimg.ai/v1/essential/text-to-image",
         method: "POST",
         headers: {
             'accept': 'application/json',
-            'authorization': `Bearer ${process.env.GET_IMG_AI_API_KEY}`,
+            'authorization': `Bearer ${API_KEY}`,
             'content-type': 'application/json'
           },
         data: {

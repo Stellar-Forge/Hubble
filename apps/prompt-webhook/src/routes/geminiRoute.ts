@@ -1,13 +1,8 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Router } from "express";
-import dotenv from "dotenv"
 import axios from "axios";
 
 const router = Router()
-dotenv.config({path: "../.env"})
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 // Health Check Endpoint
 router.get("/", (req, res) => {
@@ -48,21 +43,34 @@ router.post("/check", async (req, res) => {
 
 // Response Generation Endpoint
 router.post(`/prompt`, async (req, res) => {
+    
     //TODO: Add zod validation here?
     const { query } = req.body;
-    const { prompt } = query
-    
+    const { prompt, API_KEY } = query
+    console.log(`DECRYPTED API KEY: ${API_KEY}`)
+
+    const genAI = new GoogleGenerativeAI(API_KEY || "");
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
     // const { model, prompt, API_KEY } = query
     console.log("GOT HIT AT /PROMPT")
-    const result = await model.generateContent(prompt);
-    const promptResult = result.response.text()
-    console.log(promptResult)
-    res.json({
-        response: {
-            usageMetadata: result.response.usageMetadata,
-            promptResult
-        }
-    })
+    try {
+        const result = await model.generateContent(prompt);
+        const promptResult = result.response.text()
+        console.log(promptResult)
+        res.json({
+            response: {
+                usageMetadata: result.response.usageMetadata,
+                promptResult
+            },
+            success: true
+        })
+    } catch (e) {
+        res.json({
+            success: false
+        })
+    }
+    
 })
 
 export default router

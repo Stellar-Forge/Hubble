@@ -2,9 +2,9 @@ import { useSession } from "next-auth/react"
 import { useWorkspace } from "@repo/store/useWorkspace";
 import { useUpdateWorkspace, useClearHistory } from "@repo/store/useUpdateWorkspace";
 import React, { useState } from "react";
-import axios from "axios";
 import { redirect } from "next/navigation";
 import { saveResult } from "../../../../../../packages/actions/saveResult";
+import { geminiTextPrompt } from "../../../../../../packages/actions/sendPrompt";
 
 export function TextModel({params} : any) {
 
@@ -13,7 +13,7 @@ export function TextModel({params} : any) {
   console.log(`The used id: ${userId}`)
   if (!(status === "authenticated")) {
     redirect("/workspace")
-  }
+  }  
 
   const [input, setInput] = useState("")
   const updateWorkspace = useUpdateWorkspace()
@@ -24,28 +24,19 @@ export function TextModel({params} : any) {
   const workspaceId = (_workspaceId-1)
   let currentWorkspace = workspace[workspaceId]
 
-  async function sendPrompt(input: string) {
-    const res = await axios({
-      url: "http://localhost:3301/api/v1/gemini/prompt",
-      method: "POST",
-      data: {
-        query: {
-          prompt: input
-        }
-      },
-    })
-    console.log(res.data)
-    
-    updateWorkspace(workspaceId, res.data.response.promptResult)
-  }
-
   console.log(`THE Current Workspace IS: ${currentWorkspace}`)
 
   console.log(workspaceId)
   return <div>
     <br/>Prompt:
     <input value={input} type="text" placeholder=" Prompt" className="bg-zinc-300 rounded-sm m-5" onChange={(e: any) => setInput(e.target.value)} />
-    <button className="bg-zinc-300 rounded-md m-5" onClick={() => sendPrompt(input)}>Submit</button>
+    <button className="bg-zinc-300 rounded-md m-5" onClick={async () => {
+      const res = await geminiTextPrompt(input)
+      if (!res?.success) alert("Some Error Occured!")
+      else {
+        updateWorkspace(workspaceId, res.response)
+      }
+    }}>Submit</button>
     <button className="bg-zinc-300 rounded-md" onClick={
       async () => {
         const totalHistory = currentWorkspace?.join("!@#$%^&*()")

@@ -4,8 +4,7 @@ import dotenv from "dotenv"
 dotenv.config({path: "../.env"})
 
 // Encryption key should be 32 bytes (256 bits)
-const ENCRYPTION_KEY = "qwertyuiopasdfghjklzxcvbnmqwerty";
-console.log(ENCRYPTION_KEY)
+const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY;
 const IV_LENGTH = 16; // For AES, this is always 16 bytes (128 bits)
 
 export function encryptApiKey(apiKey: any) {
@@ -28,7 +27,6 @@ export function encryptApiKey(apiKey: any) {
 }
 
 export function decryptApiKey(encryptedApiKey: any) {
-  console.log(ENCRYPTION_KEY)
   if (!ENCRYPTION_KEY) {
     throw new Error('Encryption key is not set');
   }

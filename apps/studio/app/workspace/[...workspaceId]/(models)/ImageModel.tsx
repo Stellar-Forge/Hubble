@@ -1,4 +1,3 @@
-import axios from "axios"
 import { useState } from "react"
 import { ImageDisplay } from "../../../../components/ImageDisplay"
 import { useWorkspaceImage } from "@repo/store/useWorkspaceImage";
@@ -11,6 +10,7 @@ import {    useUpdateWorkspaceImage,
             useUpdateWorkspaceHeight,
             useUpdateWorkspaceUrl,
             useUpdateWorkspaceIsUrl } from "@repo/store/useUpdateWorkspaceImage";
+import { getImgAIPrompt } from "../../../../../../packages/actions/sendPrompt";
 
 export function ImageModel({params}: any) {
 
@@ -49,26 +49,6 @@ export function ImageModel({params}: any) {
     const updateWorkspaceHeight = useUpdateWorkspaceHeight()
     const updateWorkspaceUrl = useUpdateWorkspaceUrl()
     const updateWorkspaceIsUrl = useUpdateWorkspaceIsUrl()
-    
-
-    async function sendPrompt({ prompt, style, width, height, output_format, response_format }: QueryParams) {
-        const res = await axios({
-            url: "http://localhost:3301/api/v1/getimgai/prompt",
-            method: "POST",
-            data: {
-                query: { prompt, style, width, height, output_format, response_format }
-            }
-        })
-        if (response_format === "b64") {
-            updateWorkspaceImage(res.data.response.image, workspaceId)
-            updateWorkspaceIsUrl(false, workspaceId)
-        }
-        else {
-            console.log(`The Response URL: ${res.data.response.url}`)
-            updateWorkspaceUrl(res.data.response.url, workspaceId)
-            updateWorkspaceIsUrl(true, workspaceId)
-        }
-    }
 
     return <div>
         <br/>Prompt:
@@ -100,16 +80,26 @@ export function ImageModel({params}: any) {
         <input value={currentWidth} type="text" placeholder=" Prompt" className="bg-zinc-300 rounded-sm m-5" onChange={(e: any) => updateWorkspaceWidth(Number(e.target.value), workspaceId)} />
         Height:
         <input value={currentHeight} type="text" placeholder=" Prompt" className="bg-zinc-300 rounded-sm m-5" onChange={(e: any) => updateWorkspaceHeight(Number(e.target.value), workspaceId)} />
-        <button className="bg-zinc-300 rounded-md mr-5 mb-9" onClick={() => sendPrompt(
-            {
-                prompt: inputPrompt,
-                style: currentStyle,
-                width: currentWidth,
-                height: currentHeight,
-                response_format: currentResponseFormat,
-                output_format: currentOutputFormat
+        <button className="bg-zinc-300 rounded-md mr-5 mb-9" onClick={async () => {
+            const res = await getImgAIPrompt({
+              prompt: inputPrompt,
+              style: currentStyle,
+              width: currentWidth,
+              height: currentHeight,
+              response_format: currentResponseFormat,
+              output_format: currentOutputFormat
+            })
+            if (!res?.success) alert("Some Error Occured!")
+            else if (currentResponseFormat === "b64") {
+              updateWorkspaceImage(res.response.image, workspaceId)
+              updateWorkspaceIsUrl(false, workspaceId)
             }
-            )}>Submit</button>
+            else {
+              updateWorkspaceUrl(res.response.url, workspaceId)
+              updateWorkspaceIsUrl(true, workspaceId)
+            }
+
+            }}>Submit</button>
         <button className="bg-zinc-300 rounded-md m-5" onClick={() => {
             clearWorksapceImage(workspaceId)
             }}>Clear History</button>
