@@ -45,7 +45,7 @@ export function TextModel({params} : any) {
       async () => {
         const totalHistory = currentWorkspace?.join("!@#$%^&*()")
         setLoading(true)
-        const res = await saveResult(totalHistory, workspaceId, userId)
+        const res = await saveResult(totalHistory, _workspaceId, userId)
         setLoading(false)
         if (!res) {
           alert("Some Error Occured during Saving!")

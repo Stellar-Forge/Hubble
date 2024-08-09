@@ -1,7 +1,4 @@
 import crypto from 'crypto';
-import dotenv from "dotenv"
-
-dotenv.config({path: "../.env"})
 
 // Encryption key should be 32 bytes (256 bits)
 const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY;
