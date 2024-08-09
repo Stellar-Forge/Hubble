@@ -1,6 +1,6 @@
 "use server"
 
-import prisma from "@repo/prisma/client";
+import prisma from "@hubble/prisma/client";
 
 export async function saveResult(history: any, workspaceId: number, userId: number) {
     try {

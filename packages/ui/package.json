@@ -1,5 +1,5 @@
 {
-  "name": "@repo/ui",
+  "name": "@hubble/ui",
   "version": "0.0.0",
   "private": true,
   "exports": {
@@ -7,7 +7,18 @@
     "./card": "./src/card.tsx",
     "./code": "./src/code.tsx",
     "./appbar": "./src/appbar/Appbar.tsx",
-    "./signupCard": "./src/signup/Card.tsx"
+    "./signupCard": "./src/signup/Card.tsx",
+    "./AppbarClient": "./src/studio/AppbarClient.tsx",
+    "./DashboardIcon": "./src/studio/Icons.tsx",
+    "./WorkspaceIcon": "./src/studio/Icons.tsx",
+    "./SettingsIcon": "./src/studio/Icons.tsx",
+    "./DashboardWorkspaceIcon": "./src/studio/Icons.tsx",
+    "./AddWorkspaceIcon": "./src/studio/Icons.tsx",
+    "./ImageDisplay": "./src/studio/ImageDisplay.tsx",
+    "./Loader": "./src/studio/Loader.tsx",
+    "./ModelItem": "./src/studio/ModelItem.tsx",
+    "./SidebarItem": "./src/studio/SidebarItemClient.tsx",
+    "./WorkspaceLanding": "./src/studio/WorkspaceLanding.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

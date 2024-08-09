@@ -1,4 +1,4 @@
-import { checkAuth } from "../../../../packages/actions/checkAuth";
+import { checkAuth } from "../../../../packages/actions/src/checkAuth";
 
 export default async function Home(){
 

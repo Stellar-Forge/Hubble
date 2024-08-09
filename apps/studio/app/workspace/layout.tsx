@@ -1,5 +1,8 @@
-import { AddWorkspaceIcon, DashboardIcon, WorkspaceIcon } from "../../components/Icons";
-import { SidebarItem } from "../../components/SidebarItemClient";
+import { DashboardIcon } from "@hubble/ui/DashboardIcon";
+import { AddWorkspaceIcon } from "@hubble/ui/AddWorkspaceIcon"
+import { WorkspaceIcon } from "@hubble/ui/WorkspaceIcon"
+
+import { SidebarItem } from "@hubble/ui/SidebarItem";
 
 export default function Layout({
   children,
@@ -13,6 +16,7 @@ export default function Layout({
                 <SidebarItem href={"/"} icon={<DashboardIcon />} title="Dashboard" />
                 <SidebarItem href={"/workspace/1"} icon={<WorkspaceIcon />} title="Workspace 1" />
                 <SidebarItem href={"/workspace/2"} icon={<WorkspaceIcon />} title="Workspace 2" />
+                <SidebarItem href={"/workspace/3"} icon={<WorkspaceIcon />} title="Workspace 3" />
                 <SidebarItem href={"/transactions"} icon={<AddWorkspaceIcon />} title="Add Workspace" />
             </div>
         </div>

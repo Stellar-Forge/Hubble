@@ -1,5 +1,5 @@
 {
-  "name": "@hubble/prisma",
+  "name": "@hubble/crypto",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -9,10 +9,12 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "dependencies": {
-    "@prisma/client": "^5.17.0"
-  },
   "exports": {
-    "./client": "./src/index.ts"
+    "./encryptApiKey": "./src/index.ts",
+    "./decryptApiKey": "./src/index.ts"
+  },
+  "dependencies": {
+    "@types/dotenv": "^6.1.1",
+    "dotenv": "^16.4.5"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@repo/store",
+  "name": "@hubble/store",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -15,6 +15,10 @@
   "exports": {
     "./useWorkspace": "./src/hooks/useWorkspace.ts",
     "./useUpdateWorkspace": "./src/hooks/useUpdateWorkspace.ts",
-    "./useClearHistory": "./src/hooks/useClearHistory.ts"
+    "./useClearHistory": "./src/hooks/useClearHistory.ts",
+    "./useSelectedModel": "./src/hooks/useSelectedModel.ts",
+    "./useUpdateSelectedModel": "./src/hooks/useUpdateSelectedModel.ts",
+    "./useWorkspaceImage": "./src/hooks/useWorkspaceImage.ts",
+    "./useUpdateWorkspaceImage": "./src/hooks/useUpdateWorkspaceImage.ts"
   }
 }

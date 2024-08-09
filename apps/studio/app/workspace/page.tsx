@@ -1,5 +1,5 @@
-import WorkspaceLanding from "../../components/WorkspaceLanding";
-import { checkAuth } from "../../../../packages/actions/checkAuth";
+import WorkspaceLanding from "@hubble/ui/WorkspaceLanding";
+import { checkAuth } from "@hubble/actions/checkAuth";
 
 export default async function() {
 
