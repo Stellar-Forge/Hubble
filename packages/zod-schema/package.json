@@ -1,5 +1,5 @@
 {
-  "name": "@hubble/prisma",
+  "name": "@hubble/zod-schema",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -9,13 +9,8 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "dependencies": {
-    "@prisma/client": "^5.17.0"
-  },
-  "exports": {
-    "./client": "./src/index.ts"
-  },
-  "prisma": {
-        "seed": "ts-node prisma/seed.ts"
+  "exports":{
+    "./signupSchema": "./src/userAuthSchema.ts",
+    "./signinSchema": "./src/userAuthSchema.ts"
   }
 }

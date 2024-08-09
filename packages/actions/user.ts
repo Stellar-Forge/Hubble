@@ -2,7 +2,7 @@
 
 import prisma from "@hubble/prisma/client"
 import bcrypt from "bcrypt";
-import { signupSchema } from "../zod-schema/userAuthSchema"
+import { signupSchema } from "@hubble/zod-schema/signupSchema"
 
 interface SignupParams {
     username: string,

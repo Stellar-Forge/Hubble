@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "description": "",
+  "dependencies": {
+    "@hubble/zod-schema": "*"
+  },
   "exports": {
     "./checkAuth": "./src/checkAuth.ts",
     "./saveAPIKey": "./src/saveAPI.ts",

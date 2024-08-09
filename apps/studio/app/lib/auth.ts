@@ -3,7 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import bcrypt from "bcrypt";
-import { signinSchema } from "../../../../packages/zod-schema/userAuthSchema";
+import { signinSchema } from "../../../../packages/zod-schema/src/userAuthSchema";
 
 interface SigninParams {
   username: string,
