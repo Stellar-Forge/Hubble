@@ -5,14 +5,15 @@ import { AppbarClient } from "@hubble/ui/AppbarClient";
 
 
 export const metadata: Metadata = {
-  title: "Studio",
-  description: "A Studio To Generate And Edit AI Content From The Most Popular AI Models Today",
+    title: "Studio",
+    description:
+        "A Studio To Generate And Edit AI Content From The Most Popular AI Models Today",
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
   return (
     <html lang="en">

@@ -1,13 +1,13 @@
-"use server"
+"use server";
 
-import { getServerSession } from "next-auth"
-import { redirect } from "next/navigation"
-import { authOptions } from "../../../apps/studio/app/lib/auth"
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "../../../apps/studio/app/lib/auth";
 
 export async function checkAuth() {
-    const session = await getServerSession(authOptions)
+    const session = await getServerSession(authOptions);
     if (!session?.user) {
-        redirect("/api/auth/signin")
+        redirect("/api/auth/signin");
     }
-    return session
+    return session;
 }
