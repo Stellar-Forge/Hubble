@@ -1,21 +1,21 @@
 {
-  "name": "@hubble/prisma",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "@prisma/client": "^5.17.0"
-  },
-  "exports": {
-    "./client": "./src/index.ts"
-  },
-  "prisma": {
+    "name": "@hubble/prisma",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "@prisma/client": "^5.17.0"
+    },
+    "exports": {
+        "./client": "./src/index.ts"
+    },
+    "prisma": {
         "seed": "ts-node prisma/seed.ts"
-  }
+    }
 }

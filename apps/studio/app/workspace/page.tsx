@@ -1,11 +1,12 @@
 import WorkspaceLanding from "@hubble/ui/WorkspaceLanding";
 import { checkAuth } from "@hubble/actions/checkAuth";
 
-export default async function() {
+export default async function () {
+    await checkAuth();
 
-    await checkAuth() 
-  
-    return <div>
-        <WorkspaceLanding/>
-    </div>
+    return (
+        <div>
+            <WorkspaceLanding />
+        </div>
+    );
 }

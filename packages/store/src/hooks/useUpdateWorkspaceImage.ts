@@ -3,146 +3,133 @@ import { workspaceImage } from "../atoms/workspaceImage";
 import { useWorkspaceImage } from "./useWorkspaceImage";
 
 export function useUpdateWorkspaceImage() {
-    const setWorkspaceImage = useSetRecoilState(workspaceImage)
-    
+    const setWorkspaceImage = useSetRecoilState(workspaceImage);
+
     function update(b64string: string, workspaceId: number) {
-        setWorkspaceImage((currentWorkspace) => 
-            currentWorkspace.map((workspace, index) => 
+        setWorkspaceImage((currentWorkspace) =>
+            currentWorkspace.map((workspace, index) =>
                 index === workspaceId
                     ? { ...workspace, image: b64string }
-                    : workspace
-            )
-        )
+                    : workspace,
+            ),
+        );
     }
 
-    return update
+    return update;
 }
 
 export function useUpdateWorkspaceUrl() {
-    const setWorkspaceImage = useSetRecoilState(workspaceImage)
-    
+    const setWorkspaceImage = useSetRecoilState(workspaceImage);
+
     function update(url: string, workspaceId: number) {
-        setWorkspaceImage((currentWorkspace) => 
-            currentWorkspace.map((workspace, index) => 
-                index === workspaceId
-                    ? { ...workspace, url}
-                    : workspace
-            )
-        )
+        setWorkspaceImage((currentWorkspace) =>
+            currentWorkspace.map((workspace, index) =>
+                index === workspaceId ? { ...workspace, url } : workspace,
+            ),
+        );
     }
 
-    return update
+    return update;
 }
 
-
 export function useClearWorkspaceImage() {
-    const setWorkspaceImage = useSetRecoilState(workspaceImage)
+    const setWorkspaceImage = useSetRecoilState(workspaceImage);
 
     function clear(workspaceId: number) {
-        setWorkspaceImage((currentWorkspace) => 
-            currentWorkspace.map((workspace, index) => 
-                index === workspaceId
-                    ? { ...workspace, image: "" }
-                    : workspace
-            )
-        )
+        setWorkspaceImage((currentWorkspace) =>
+            currentWorkspace.map((workspace, index) =>
+                index === workspaceId ? { ...workspace, image: "" } : workspace,
+            ),
+        );
     }
 
-    return clear
+    return clear;
 }
 
 export function useUpdateWorkspaceStyle() {
-    const setWorkspaceImage = useSetRecoilState(workspaceImage)
+    const setWorkspaceImage = useSetRecoilState(workspaceImage);
 
     function update(style: string, workspaceId: number) {
-        setWorkspaceImage((currentWorkspace) => 
-            currentWorkspace.map((workspace, index) => 
-                index === workspaceId
-                    ? { ...workspace, style}
-                    : workspace
-            )
-        )
+        setWorkspaceImage((currentWorkspace) =>
+            currentWorkspace.map((workspace, index) =>
+                index === workspaceId ? { ...workspace, style } : workspace,
+            ),
+        );
     }
 
-    return update
+    return update;
 }
 
 export function useUpdateWorkspaceOutputFormat() {
-    const setWorkspaceImage = useSetRecoilState(workspaceImage)
+    const setWorkspaceImage = useSetRecoilState(workspaceImage);
 
     function update(output_format: string, workspaceId: number) {
-        setWorkspaceImage((currentWorkspace) => 
-            currentWorkspace.map((workspace, index) => 
+        setWorkspaceImage((currentWorkspace) =>
+            currentWorkspace.map((workspace, index) =>
                 index === workspaceId
-                    ? { ...workspace, output_format}
-                    : workspace
-            )
-        )
+                    ? { ...workspace, output_format }
+                    : workspace,
+            ),
+        );
     }
 
-    return update
+    return update;
 }
 
 export function useUpdateWorkspaceResponseFormat() {
-    const setWorkspaceImage = useSetRecoilState(workspaceImage)
+    const setWorkspaceImage = useSetRecoilState(workspaceImage);
 
     function update(response_format: string, workspaceId: number) {
-        setWorkspaceImage((currentWorkspace) => 
-            currentWorkspace.map((workspace, index) => 
+        setWorkspaceImage((currentWorkspace) =>
+            currentWorkspace.map((workspace, index) =>
                 index === workspaceId
-                    ? { ...workspace, response_format}
-                    : workspace
-            )
-        )
+                    ? { ...workspace, response_format }
+                    : workspace,
+            ),
+        );
     }
 
-    return update
+    return update;
 }
 
 export function useUpdateWorkspaceWidth() {
-    const setWorkspaceImage = useSetRecoilState(workspaceImage)
+    const setWorkspaceImage = useSetRecoilState(workspaceImage);
 
     function update(width: number, workspaceId: number) {
-        setWorkspaceImage((currentWorkspace) => 
-            currentWorkspace.map((workspace, index) => 
-                index === workspaceId
-                    ? { ...workspace, width}
-                    : workspace
-            )
-        )
+        setWorkspaceImage((currentWorkspace) =>
+            currentWorkspace.map((workspace, index) =>
+                index === workspaceId ? { ...workspace, width } : workspace,
+            ),
+        );
     }
 
-    return update
+    return update;
 }
 
 export function useUpdateWorkspaceHeight() {
-    const setWorkspaceImage = useSetRecoilState(workspaceImage)
+    const setWorkspaceImage = useSetRecoilState(workspaceImage);
 
     function update(height: number, workspaceId: number) {
-        setWorkspaceImage((currentWorkspace) => 
-            currentWorkspace.map((workspace, index) => 
-                index === workspaceId
-                    ? { ...workspace, height}
-                    : workspace
-            )
-        )
+        setWorkspaceImage((currentWorkspace) =>
+            currentWorkspace.map((workspace, index) =>
+                index === workspaceId ? { ...workspace, height } : workspace,
+            ),
+        );
     }
 
-    return update
+    return update;
 }
 
 export function useUpdateWorkspaceIsUrl() {
-    const setWorkspaceImage = useSetRecoilState(workspaceImage)
-    
+    const setWorkspaceImage = useSetRecoilState(workspaceImage);
+
     function update(isUrl: boolean, workspaceId: number) {
-        setWorkspaceImage((currentWorkspace) => 
-            currentWorkspace.map((workspace, index) => 
-                index === workspaceId
-                    ? { ...workspace, isUrl }
-                    : workspace
-            )
-        )
+        setWorkspaceImage((currentWorkspace) =>
+            currentWorkspace.map((workspace, index) =>
+                index === workspaceId ? { ...workspace, isUrl } : workspace,
+            ),
+        );
     }
 
-    return update
+    return update;
 }
