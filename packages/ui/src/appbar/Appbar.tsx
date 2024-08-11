@@ -16,13 +16,13 @@ export const Appbar = ({
     onSignout,
     router
 }: AppbarProps) => {
-    return <div className="flex justify-between border-b px-4 w-full">
-        <div className="text-lg flex flex-col justify-center">
-            <a href="/">Hubble</a>
+    return <div className="flex justify-between px-4 w-full bg-gradient-to-t from-[#7096D1] to-[#334EAC]">
+        <div className="text-lg flex flex-col justify-center items-center ml-10 ">
+            <a href="/" className="font-bold text-[#F7F2EB]">Hubble</a>
         </div>
-        <div className="flex items-center space-x-10">
+        <div className="flex items-center space-x-10 mr-10 my-2">
             <div>
-                {user?.name}
+                <a href="/" className="text-[#F7F2EB] font-medium">{user?.name}</a>
             </div>
             <div className="flex justify-center pt-2">
 
