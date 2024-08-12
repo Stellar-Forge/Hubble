@@ -63,8 +63,9 @@ export function TextModel({ params }: any) {
                     setLoading(true);
                     const res = await geminiTextPrompt(input);
                     setLoading(false);
-                    if (!res?.success) alert("Some Error Occured!");
-                    else {
+                    if (!res?.success) {
+                        alert(res?.message);
+                    } else {
                         updateWorkspace(workspaceId, res.response);
                     }
                 }}

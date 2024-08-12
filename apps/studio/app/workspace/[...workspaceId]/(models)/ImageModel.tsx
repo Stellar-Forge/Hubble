@@ -147,8 +147,9 @@ export function ImageModel({ params }: any) {
                         output_format: currentOutputFormat,
                     });
                     setLoading(false);
-                    if (!res?.success) alert("Some Error Occured!");
-                    else if (currentResponseFormat === "b64") {
+                    if (!res?.success) {
+                        alert(res?.message);
+                    } else if (currentResponseFormat === "b64") {
                         updateWorkspaceImage(res.response.image, workspaceId);
                         updateWorkspaceIsUrl(false, workspaceId);
                     } else {

@@ -34,7 +34,12 @@ export async function geminiTextPrompt(input: string) {
         console.log(
             `encrypted_API_KEY: ${JSON.stringify(encrypted_API_KEY?.API_Key)}`,
         );
-        if (!encrypted_API_KEY) return { success: false };
+        if (!encrypted_API_KEY) {
+            return {
+                success: false,
+                message: "API Key Not Found!",
+            };
+        }
         const decrypted_API_KEY = decryptApiKey(encrypted_API_KEY.API_Key);
         console.log(`decrypted_API_KEY: ${JSON.stringify(decrypted_API_KEY)}`);
 
@@ -48,7 +53,7 @@ export async function geminiTextPrompt(input: string) {
                 },
             },
         });
-        console.log(res.data);
+        console.log("Data received: ", res.data);
 
         return {
             response: res.data.response.promptResult,
@@ -56,6 +61,10 @@ export async function geminiTextPrompt(input: string) {
         };
     } catch (e) {
         console.log(e);
+        return {
+            success: false,
+            message: "Some Error Occured!",
+        };
     }
 }
 
@@ -84,7 +93,12 @@ export async function getImgAIPrompt({
         console.log(
             `encrypted_API_KEY: ${JSON.stringify(encrypted_API_KEY?.API_Key)}`,
         );
-        if (!encrypted_API_KEY) return { success: false };
+        if (!encrypted_API_KEY) {
+            return {
+                success: false,
+                message: "API Key Not Found!",
+            };
+        }
         const decrypted_API_KEY = decryptApiKey(encrypted_API_KEY.API_Key);
         console.log(`decrypted_API_KEY: ${JSON.stringify(decrypted_API_KEY)}`);
 
@@ -111,5 +125,9 @@ export async function getImgAIPrompt({
         };
     } catch (e) {
         console.log(e);
+        return {
+            success: false,
+            message: "Some Error Occured!",
+        };
     }
 }
