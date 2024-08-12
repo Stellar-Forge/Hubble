@@ -38,7 +38,9 @@ export function useClearWorkspaceImage() {
     function clear(workspaceId: number) {
         setWorkspaceImage((currentWorkspace) =>
             currentWorkspace.map((workspace, index) =>
-                index === workspaceId ? { ...workspace, image: "" } : workspace,
+                index === workspaceId
+                    ? { ...workspace, image: "", url: "" }
+                    : workspace,
             ),
         );
     }
