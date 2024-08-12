@@ -7,7 +7,7 @@ import { ModelItem } from "@hubble/ui/ModelItem";
 import { saveAPIKey } from "@hubble/actions/saveAPIKey";
 import { Loader } from "@hubble/ui/Loader";
 
-export default function () {
+export default function Home() {
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
     const [saveButtonVisible, setSaveButtonVisible] = useState(false);
@@ -102,8 +102,9 @@ export default function () {
             <br />
             {`Your Available Models For Current API Key: `}
             {saveButtonVisible
-                ? usableModels.map((e: any) => (
+                ? usableModels.map((e: any, index) => (
                       <ModelItem
+                          key={index}
                           displayName={
                               model === "Gemini" ? e.displayName : e.name
                           }

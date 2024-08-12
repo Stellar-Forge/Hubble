@@ -4,7 +4,7 @@ import {
     useUpdateWorkspace,
     useClearHistory,
 } from "@hubble/store/useUpdateWorkspace";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { redirect } from "next/navigation";
 import { saveResult } from "@hubble/actions/saveResult";
 import { geminiTextPrompt } from "@hubble/actions/geminiTextPrompt";
@@ -18,6 +18,7 @@ export function TextModel({ params }: any) {
         redirect("/workspace");
     }
 
+    const submitButtonRef: any = useRef();
     const [loading, setLoading] = useState(false);
     const [input, setInput] = useState("");
     const updateWorkspace = useUpdateWorkspace();
@@ -31,19 +32,33 @@ export function TextModel({ params }: any) {
     console.log(`THE Current Workspace IS: ${currentWorkspace}`);
 
     console.log(workspaceId);
+
+    const handleEnterKey = (e: any) => {
+        if (e.key === "Enter") {
+            if (e.shiftKey) {
+                e.preventDefault(); // Prevent the default behavior (form submission)
+                setInput((prevInput) => prevInput + "\n");
+            } else {
+                e.preventDefault(); // Prevent the default behavior (form submission)
+                submitButtonRef.current.click();
+            }
+        }
+    };
+
     return (
         <div>
             <br />
             Prompt:
-            <input
+            <textarea
                 value={input}
-                type="text"
-                placeholder=" Prompt"
-                className="bg-zinc-300 rounded-sm m-5"
-                onChange={(e: any) => setInput(e.target.value)}
+                placeholder="Prompt"
+                className="bg-zinc-300 rounded-sm m-5 p-2 w-64 h-24"
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleEnterKey}
             />
             <button
                 className="bg-zinc-300 rounded-md m-5"
+                ref={submitButtonRef}
                 onClick={async () => {
                     setLoading(true);
                     const res = await geminiTextPrompt(input);
