@@ -1,0 +1,16 @@
+{
+    "name": "@hubble/zod-schema",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "exports": {
+        "./signupSchema": "./src/userAuthSchema.ts",
+        "./signinSchema": "./src/userAuthSchema.ts"
+    }
+}

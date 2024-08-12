@@ -1,19 +1,23 @@
 {
-  "name": "@hubble/actions",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "exports": {
-    "./checkAuth": "./src/checkAuth.ts",
-    "./saveAPIKey": "./src/saveAPI.ts",
-    "./saveResult": "./src/saveResult.ts",
-    "./geminiTextPrompt": "./src/sendPrompt.ts",
-    "./getImgAIPrompt": "./src/sendPrompt.ts"
-  }
+    "name": "@hubble/actions",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "@hubble/zod-schema": "*"
+    },
+    "exports": {
+        "./checkAuth": "./src/checkAuth.ts",
+        "./checkAddedKeys": "./src/checkAddedKeys.ts",
+        "./saveAPIKey": "./src/saveAPI.ts",
+        "./saveResult": "./src/saveResult.ts",
+        "./geminiTextPrompt": "./src/sendPrompt.ts",
+        "./getImgAIPrompt": "./src/sendPrompt.ts"
+    }
 }

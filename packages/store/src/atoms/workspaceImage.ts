@@ -12,8 +12,9 @@ export const workspaceImage = atom({
             response_format: "b64",
             image: "",
             url: "",
-            isUrl: false
-        }, {
+            isUrl: false,
+        },
+        {
             style: "photorealism",
             width: 1024,
             height: 1024,
@@ -21,8 +22,9 @@ export const workspaceImage = atom({
             response_format: "b64",
             image: "",
             url: "",
-            isUrl: false
-        }, {
+            isUrl: false,
+        },
+        {
             style: "photorealism",
             width: 1024,
             height: 1024,
@@ -30,7 +32,7 @@ export const workspaceImage = atom({
             response_format: "b64",
             image: "",
             url: "",
-            isUrl: false
-        }
-    ]
-})
+            isUrl: false,
+        },
+    ],
+});
