@@ -1,5 +1,6 @@
 import { ChangeEventHandler, useState } from "react";
 import { Button } from "./Button";
+import "./style.css";
 
 interface CardProps {
     // TODO: what type should be here?
@@ -16,7 +17,7 @@ export function Card({ onSignIn }: CardProps) {
             <div className="flex justify-center">
                 <a
                     href="#"
-                    className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 "
+                    className="block max-w-sm p-6 rounded-lg  border-2 border-black bg-[#F3F3F2] drop-shadow-[25px_25px_15px_rgba(0,0,0,0.45)]"
                 >
                     <div>
                         <div className="px-10">
@@ -76,7 +77,7 @@ function LabelledInput({
                 onChange={onChange}
                 type={type || "text"}
                 id="first_name"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="bg-[#F3F3F2] border border-black text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder={placeholder}
                 required
             />

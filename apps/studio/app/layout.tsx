@@ -3,7 +3,6 @@ import "./globals.css";
 import { Providers } from "../provider";
 import { AppbarClient } from "@hubble/ui/AppbarClient";
 
-
 export const metadata: Metadata = {
     title: "Studio",
     description:
@@ -15,14 +14,14 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body>
-        <Providers>
-        <AppbarClient/>
-          {children}
-        </Providers>
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en">
+            <body>
+                <Providers>
+                    <AppbarClient />
+                    {children}
+                </Providers>
+            </body>
+        </html>
+    );
 }
