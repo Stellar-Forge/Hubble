@@ -7,7 +7,7 @@ import {
 import React, { useRef, useState } from "react";
 import { redirect } from "next/navigation";
 import { saveResult } from "@hubble/actions/saveResult";
-import { geminiTextPrompt } from "@hubble/actions/geminiTextPrompt";
+import { geminiTextPrompt } from "@hubble/actions/TextPrompt";
 import { Loader } from "@hubble/ui/Loader";
 
 export function TextModel({ params }: any) {

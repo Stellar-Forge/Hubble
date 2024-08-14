@@ -1,6 +1,8 @@
-import { DashboardIcon } from "@hubble/ui/DashboardIcon";
-import { AddWorkspaceIcon } from "@hubble/ui/AddWorkspaceIcon";
-import { WorkspaceIcon } from "@hubble/ui/WorkspaceIcon";
+import {
+    DashboardIcon,
+    AddWorkspaceIcon,
+    WorkspaceIcon,
+} from "@hubble/ui/Icons";
 
 import { SidebarItem } from "@hubble/ui/SidebarItem";
 

@@ -10,7 +10,6 @@
     "license": "ISC",
     "description": "",
     "exports": {
-        "./signupSchema": "./src/userAuthSchema.ts",
-        "./signinSchema": "./src/userAuthSchema.ts"
+        "./Schema": "./src/userAuthSchema.ts"
     }
 }

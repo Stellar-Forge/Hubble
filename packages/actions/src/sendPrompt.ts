@@ -5,7 +5,7 @@ import prisma from "@hubble/prisma/client";
 import { API_Platform } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../../apps/studio/app/lib/auth";
-import { decryptApiKey } from "@hubble/crypto/encryptApiKey";
+import { decryptApiKey } from "@hubble/crypto/crypto";
 
 interface QueryParams {
     prompt: string;

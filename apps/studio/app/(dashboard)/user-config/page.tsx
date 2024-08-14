@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { encryptApiKey } from "@hubble/crypto/encryptApiKey";
+import { encryptApiKey } from "@hubble/crypto/crypto";
 import axios from "axios";
 import { ModelItem } from "@hubble/ui/ModelItem";
 import { saveAPIKey } from "@hubble/actions/saveAPIKey";

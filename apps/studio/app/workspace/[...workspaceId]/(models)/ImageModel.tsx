@@ -12,7 +12,7 @@ import {
     useUpdateWorkspaceUrl,
     useUpdateWorkspaceIsUrl,
 } from "@hubble/store/useUpdateWorkspaceImage";
-import { getImgAIPrompt } from "@hubble/actions/getImgAIPrompt";
+import { getImgAIPrompt } from "@hubble/actions/TextPrompt";
 import { Loader } from "@hubble/ui/Loader";
 
 export function ImageModel({ params }: any) {
