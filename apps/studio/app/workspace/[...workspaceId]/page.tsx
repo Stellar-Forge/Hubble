@@ -5,7 +5,7 @@ import { useSelectedModel } from "@hubble/store/useSelectedModel";
 import { ImageModel } from "./(models)/ImageModel";
 import { TextModel } from "./(models)/TextModel";
 
-export default function ({ params }: any) {
+export default function Page({ params }: any) {
     const _workspaceId = Number(params.workspaceId[0]);
     const workspaceId = _workspaceId - 1;
 

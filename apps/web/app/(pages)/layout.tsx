@@ -19,12 +19,12 @@ export default function Layout({
                         title="Dashboard"
                     />
                     <SidebarItem
-                        href={"/workspace"}
+                        href={"/"}
                         icon={<DashboardWorkspaceIcon />}
                         title="Workspace"
                     />
                     <SidebarItem
-                        href={"/user-config"}
+                        href={"/"}
                         icon={<SettingsIcon />}
                         title="API Settings"
                     />

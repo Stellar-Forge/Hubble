@@ -1,4 +1,8 @@
-export default function Landing() {
+import { checkAuth } from "@hubble/actions/checkAuth";
+
+export default async function Landing() {
+    await checkAuth();
+
     return (
         <div>
             Home
