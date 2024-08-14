@@ -4,7 +4,7 @@
     "scripts": {
         "build": "turbo build",
         "dev": "turbo dev",
-        "lint": "eslint . --ext js,jsx,ts,tsx --fix",
+        "lint": "turbo lint",
         "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
         "prisma:generate": "cd ./packages/prisma && npx prisma generate && cd ../..",
         "start:studio": "cd ./apps/studio && npm run start"
@@ -20,7 +20,7 @@
     "engines": {
         "node": ">=18"
     },
-    "packageManager": "npm@10.8.2",
+    "packageManager": "yarn@1.22.22",
     "workspaces": [
         "apps/*",
         "packages/*"
