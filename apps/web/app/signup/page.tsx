@@ -1,12 +1,12 @@
 "use client";
 
-import { Card } from "@hubble/ui/signupCard";
+import { SignupCard } from "@hubble/ui/SignupCard";
 import { signIn } from "next-auth/react";
 
 export default function Page() {
     return (
         <>
-            <Card onSignIn={signIn} />
+            <SignupCard onSignIn={signIn} />
         </>
     );
 }

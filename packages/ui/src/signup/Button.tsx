@@ -1,4 +1,4 @@
-import { signup } from "../../../actions/user";
+import { signup } from "@hubble/actions/signup";
 
 interface UserParams {
     username: string;

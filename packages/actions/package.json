@@ -18,6 +18,7 @@
         "./saveAPIKey": "./src/saveAPI.ts",
         "./saveResult": "./src/saveResult.ts",
         "./geminiTextPrompt": "./src/sendPrompt.ts",
-        "./getImgAIPrompt": "./src/sendPrompt.ts"
+        "./getImgAIPrompt": "./src/sendPrompt.ts",
+        "./signup": "./src/signup.ts"
     }
 }
