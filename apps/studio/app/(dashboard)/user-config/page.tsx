@@ -1,18 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { encryptApiKey } from "@hubble/crypto/encryptApiKey";
 import axios from "axios";
 import { ModelItem } from "@hubble/ui/ModelItem";
 import { saveAPIKey } from "@hubble/actions/saveAPIKey";
+import { checkAddedKeys } from "@hubble/actions/checkAddedKeys";
 import { Loader } from "@hubble/ui/Loader";
 
-export default function () {
+export default function Page() {
     const [input, setInput] = useState("");
+    const [userKeys, setUserKeys] = useState([{}]);
+    const [keyDidUpdate, setKeyDidUpdate] = useState(false);
     const [loading, setLoading] = useState(false);
     const [saveButtonVisible, setSaveButtonVisible] = useState(false);
     const [model, setModel] = useState("Gemini");
     const [usableModels, setUsableModels] = useState([{}]);
+
+    async function savedKeys() {
+        const savedKeys = await checkAddedKeys();
+        setUserKeys(savedKeys);
+    }
 
     async function checkAPIKey(apiKey: string) {
         const urlModel = model === "Gemini" ? "gemini" : "getimgai";
@@ -29,8 +37,16 @@ export default function () {
         return res.data;
     }
 
+    useEffect(() => {
+        // Make this entire page do SSR, then no need for this use effect
+        savedKeys();
+        setKeyDidUpdate(false);
+    }, [keyDidUpdate]);
+
     return (
         <div>
+            <div>Your API Keys Linked With This Account:</div>
+            <div>{JSON.stringify(userKeys.map((e: any) => e.platform))}</div>
             <label>
                 Add Your API Key for Model:
                 <select
@@ -90,7 +106,10 @@ export default function () {
                         );
                         setLoading(false);
                         if (!res) alert("Some Error Occured!");
-                        else alert("API Key Saved Successfully!");
+                        else {
+                            setKeyDidUpdate(true);
+                            alert("API Key Saved Successfully!");
+                        }
                     }}
                 >
                     Save
@@ -102,8 +121,9 @@ export default function () {
             <br />
             {`Your Available Models For Current API Key: `}
             {saveButtonVisible
-                ? usableModels.map((e: any) => (
+                ? usableModels.map((e: any, index) => (
                       <ModelItem
+                          key={index}
                           displayName={
                               model === "Gemini" ? e.displayName : e.name
                           }

@@ -14,6 +14,7 @@
     },
     "exports": {
         "./checkAuth": "./src/checkAuth.ts",
+        "./checkAddedKeys": "./src/checkAddedKeys.ts",
         "./saveAPIKey": "./src/saveAPI.ts",
         "./saveResult": "./src/saveResult.ts",
         "./geminiTextPrompt": "./src/sendPrompt.ts",

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ImageDisplay } from "@hubble/ui/ImageDisplay";
 import { useWorkspaceImage } from "@hubble/store/useWorkspaceImage";
 import {
@@ -16,6 +16,7 @@ import { getImgAIPrompt } from "@hubble/actions/getImgAIPrompt";
 import { Loader } from "@hubble/ui/Loader";
 
 export function ImageModel({ params }: any) {
+    const submitButtonRef: any = useRef();
     const [inputPrompt, setInputPrompt] = useState("");
     const [loading, setLoading] = useState(false);
     const _workspaceId = Number(params.workspaceId[0]);
@@ -42,16 +43,28 @@ export function ImageModel({ params }: any) {
     const updateWorkspaceUrl = useUpdateWorkspaceUrl();
     const updateWorkspaceIsUrl = useUpdateWorkspaceIsUrl();
 
+    const handleEnterKey = (e: any) => {
+        if (e.key === "Enter") {
+            if (e.shiftKey) {
+                e.preventDefault(); // Prevent the default behavior (form submission)
+                setInputPrompt((prevInput) => prevInput + "\n");
+            } else {
+                e.preventDefault(); // Prevent the default behavior (form submission)
+                submitButtonRef.current.click();
+            }
+        }
+    };
+
     return (
         <div>
             <br />
             Prompt:
-            <input
+            <textarea
                 value={inputPrompt}
-                type="text"
-                placeholder=" Prompt"
-                className="bg-zinc-300 rounded-sm m-5"
-                onChange={(e: any) => setInputPrompt(e.target.value)}
+                placeholder="Prompt"
+                className="bg-zinc-300 rounded-sm m-5 p-2 w-64 h-24"
+                onChange={(e) => setInputPrompt(e.target.value)}
+                onKeyDown={handleEnterKey}
             />
             <label>
                 Style:
@@ -122,6 +135,7 @@ export function ImageModel({ params }: any) {
             />
             <button
                 className="bg-zinc-300 rounded-md mr-5 mb-9"
+                ref={submitButtonRef}
                 onClick={async () => {
                     setLoading(true);
                     const res = await getImgAIPrompt({
@@ -133,8 +147,9 @@ export function ImageModel({ params }: any) {
                         output_format: currentOutputFormat,
                     });
                     setLoading(false);
-                    if (!res?.success) alert("Some Error Occured!");
-                    else if (currentResponseFormat === "b64") {
+                    if (!res?.success) {
+                        alert(res?.message);
+                    } else if (currentResponseFormat === "b64") {
                         updateWorkspaceImage(res.response.image, workspaceId);
                         updateWorkspaceIsUrl(false, workspaceId);
                     } else {

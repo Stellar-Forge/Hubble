@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { AppbarClient } from "@hubble/ui/AppbarClient";
+import { Providers } from "./provider";
 
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",
@@ -24,7 +26,10 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${geistSans.variable} ${geistMono.variable}`}>
-                {children}
+                <Providers>
+                    <AppbarClient />
+                    {children}
+                </Providers>
             </body>
         </html>
     );
