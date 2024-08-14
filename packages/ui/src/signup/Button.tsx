@@ -24,7 +24,7 @@ export function Button({ username, email, password, onSignIn }: UserParams) {
                 );
             }}
             type="button"
-            className="mt-8 w-full text-white bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+            className="mt-8 w-full text-[#F3F3F2] bg-black focus:ring-4 focus:ring-gray-300 font-bold rounded-lg text-xl px-5 py-2.5 me-2 mb-2"
         >
             Sign Up
         </button>
