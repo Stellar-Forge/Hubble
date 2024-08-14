@@ -14,19 +14,24 @@ export default function Layout({
             <div className="w-72 border-r border-slate-300 min-h-screen mr-4 pt-28">
                 <div>
                     <SidebarItem
-                        href={"/"}
+                        href={"/home"}
                         icon={<DashboardIcon />}
-                        title="Dashboard"
+                        title="Home"
                     />
                     <SidebarItem
-                        href={"/"}
+                        href={"/explore"}
                         icon={<DashboardWorkspaceIcon />}
-                        title="Workspace"
+                        title="Explore"
                     />
                     <SidebarItem
-                        href={"/"}
+                        href={"/notifications"}
                         icon={<SettingsIcon />}
-                        title="API Settings"
+                        title="Notifications"
+                    />
+                    <SidebarItem
+                        href={"/messages"}
+                        icon={<SettingsIcon />}
+                        title="Messages"
                     />
                 </div>
             </div>

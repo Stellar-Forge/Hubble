@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "../provider";
-import { AppbarClient } from "@hubble/ui/AppbarClient";
 
 export const metadata: Metadata = {
     title: "Studio",
@@ -17,10 +16,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <Providers>
-                    <AppbarClient />
-                    {children}
-                </Providers>
+                <Providers>{children}</Providers>
             </body>
         </html>
     );
