@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int         @id @default(autoincrement())
+  username      String      @unique
+  email         String      @unique
+  password      String
+  firstName     String?
+  lastName      String?
+  workspaces    Workspace[]
+  histories     History[]
+  API_Keys      API_Key[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model Workspace {
+  id          Int       @id @default(autoincrement())
+  workspaceId Int
+  name        String
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int
+  histories   History[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@unique([userId, workspaceId])
+}
+
+model History {
+  id          Int       @id @default(autoincrement())
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int
+  workspace   Workspace @relation(fields: [userId, workspaceId], references: [userId, workspaceId])
+  workspaceId Int
+  responses   Json
+  createdAt   DateTime  @default(now())
+
+  @@index([userId, workspaceId])
+}
+
+model API_Key {
+  id          Int       @id @default(autoincrement())
+  platform    API_Platform
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int
+  API_Key     String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@unique([userId, platform])
+}
+
+enum API_Platform {
+  Google
+  OpenAI
+  GetImgAI
+}
+
+enum AuthType {
+  Google
+  Github
+}

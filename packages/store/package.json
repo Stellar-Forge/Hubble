@@ -1,0 +1,24 @@
+{
+    "name": "@hubble/store",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "recoil": "^0.7.7"
+    },
+    "exports": {
+        "./useWorkspace": "./src/hooks/useWorkspace.ts",
+        "./useUpdateWorkspace": "./src/hooks/useUpdateWorkspace.ts",
+        "./useClearHistory": "./src/hooks/useClearHistory.ts",
+        "./useSelectedModel": "./src/hooks/useSelectedModel.ts",
+        "./useUpdateSelectedModel": "./src/hooks/useUpdateSelectedModel.ts",
+        "./useWorkspaceImage": "./src/hooks/useWorkspaceImage.ts",
+        "./useUpdateWorkspaceImage": "./src/hooks/useUpdateWorkspaceImage.ts"
+    }
+}

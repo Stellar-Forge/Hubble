@@ -1,0 +1,36 @@
+{
+  "name": "Hubble",
+  "private": true,
+  "scripts": {
+      "build": "turbo build",
+      "dev": "turbo dev",
+      "lint": "turbo lint",
+      "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+      "prisma:generate": "cd ./packages/prisma && npx prisma generate && cd ../..",
+      "start:studio": "cd ./apps/studio && npm run start"
+  },
+  "devDependencies": {
+      "eslint": "^8.57.0",
+      "eslint-config-prettier": "^9.1.0",
+      "eslint-plugin-prettier": "^5.2.1",
+      "prettier": "^3.3.3",
+      "turbo": "^2.0.9",
+      "typescript": "^5.4.5"
+  },
+  "engines": {
+      "node": ">=18"
+  },
+  "packageManager": "yarn@1.22.22",
+  "workspaces": [
+      "apps/*",
+      "packages/*"
+  ],
+  "dependencies": {
+      "@types/recoil": "^0.0.1",
+      "bcrypt": "^5.1.1",
+      "crypto": "^1.0.1",
+      "next": "^14.2.5",
+      "next-auth": "^4.24.7",
+      "zod": "^3.23.8"
+  }
+}

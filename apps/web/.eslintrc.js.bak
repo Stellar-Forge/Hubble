@@ -1,0 +1,28 @@
+/** @type {import("eslint").Linter.Config} */
+module.exports = {
+    root: true,
+    extends: ["@repo/eslint-config/next.js"],
+    parser: "@typescript-eslint/parser",
+    parserOptions: {
+        project: ["./tsconfig.json"],
+        project: true,
+    },
+    overrides: [
+        {
+            files: ["*.js", "*.jsx", "*.ts", "*.tsx"],
+            extends: [
+                "eslint:recommended",
+                "plugin:@typescript-eslint/recommended",
+            ],
+        },
+        {
+            files: ["*.js", "*.jsx", "*.cjs", "*.mjs"],
+            env: {
+                node: true,
+            },
+            parserOptions: {
+                sourceType: "script",
+            },
+        },
+    ],
+};

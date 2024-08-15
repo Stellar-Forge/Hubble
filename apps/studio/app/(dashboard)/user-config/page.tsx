@@ -1,0 +1,139 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { encryptApiKey } from "@hubble/crypto/crypto";
+import axios from "axios";
+import { ModelItem } from "@hubble/ui/ModelItem";
+import { saveAPIKey } from "@hubble/actions/saveAPIKey";
+import { checkAddedKeys } from "@hubble/actions/checkAddedKeys";
+import { Loader } from "@hubble/ui/Loader";
+
+export default function Page() {
+    const [input, setInput] = useState("");
+    const [userKeys, setUserKeys] = useState([{}]);
+    const [keyDidUpdate, setKeyDidUpdate] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [saveButtonVisible, setSaveButtonVisible] = useState(false);
+    const [model, setModel] = useState("Gemini");
+    const [usableModels, setUsableModels] = useState([{}]);
+
+    async function savedKeys() {
+        const savedKeys = await checkAddedKeys();
+        setUserKeys(savedKeys);
+    }
+
+    async function checkAPIKey(apiKey: string) {
+        const urlModel = model === "Gemini" ? "gemini" : "getimgai";
+        const res = await axios({
+            url: `http://localhost:3301/api/v1/${urlModel}/check`,
+            method: "POST",
+            data: {
+                query: {
+                    API_KEY: apiKey,
+                },
+            },
+        });
+
+        return res.data;
+    }
+
+    useEffect(() => {
+        // Make this entire page do SSR, then no need for this use effect
+        savedKeys();
+        setKeyDidUpdate(false);
+    }, [keyDidUpdate]);
+
+    console.log(userKeys);
+
+    return (
+        <div className="flex flex-col grow justify-center items-center">
+            <label className="m-3">
+                <h1 className="text-6xl font-bold drop-shadow-[2px_2px_1px_rgba(0,0,0,0.45)] transition hover:drop-shadow-[10px_10px_5px_rgba(0,0,0,0.45)] ease-out duration-500">
+                    Add Your API Keys
+                </h1>
+            </label>
+            <div className="m-5 w-full flex justify-center items-center">
+                <select
+                    className="border-2 border-black p-2 rounded-lg"
+                    value={model}
+                    onChange={(e) => {
+                        setModel(e.target.value);
+                        setSaveButtonVisible(false);
+                    }}
+                >
+                    <option value="Gemini">Gemini</option>
+                    <option value="GetImgAI">GetImg.AI</option>
+                </select>
+                <input
+                    className="m-3 border-2 border-black p-2 rounded-lg w-1/2"
+                    value={input}
+                    type="text"
+                    placeholder="API KEY"
+                    onChange={(e) => {
+                        setInput(e.target.value);
+                        setSaveButtonVisible(false);
+                    }}
+                ></input>
+                <button
+                    className="border-2 border-black p-2 rounded-lg"
+                    onClick={async () => {
+                        setLoading(true);
+                        const res = await checkAPIKey(input);
+                        setLoading(false);
+                        if (!res.success) {
+                            alert("Invalid API Key!");
+                            setSaveButtonVisible(false);
+                        } else if (model === "Gemini") {
+                            setUsableModels(res.response.models);
+                            setSaveButtonVisible(true);
+                        } else {
+                            setUsableModels(res.response);
+                            setSaveButtonVisible(true);
+                        }
+                    }}
+                >
+                    Check
+                </button>
+                {saveButtonVisible ? (
+                    <button
+                        className=" ml-3 border-2 border-black p-2 rounded-lg"
+                        onClick={async () => {
+                            const encryptedCode = encryptApiKey(input);
+                            setLoading(true);
+                            type ModelPlatform = "Gemini" | "GetImgAI";
+                            const modelPlatform = model as ModelPlatform; // telling model is type ModelPlatform
+                            const res = await saveAPIKey(
+                                encryptedCode,
+                                modelPlatform
+                            );
+                            setLoading(false);
+                            if (!res) alert("Some Error Occured!");
+                            else {
+                                setKeyDidUpdate(true);
+                                alert("API Key Saved Successfully!");
+                            }
+                        }}
+                    >
+                        Save
+                    </button>
+                ) : (
+                    ""
+                )}
+            </div>
+            <div>Connected API Keys - </div>
+            <div>{JSON.stringify(userKeys.map((e: any) => e.platform))}</div>
+            {`Your Available Models For Current API Key: `}
+            {saveButtonVisible
+                ? usableModels.map((e: any, index) => (
+                      <ModelItem
+                          key={index}
+                          displayName={
+                              model === "Gemini" ? e.displayName : e.name
+                          }
+                      />
+                  ))
+                : ""}
+            {loading ? <Loader /> : ""}
+        </div>
+    );
+}

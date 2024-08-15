@@ -1,0 +1,24 @@
+.text-shadow-black {
+    text-shadow: 0 4px 0 #141414;
+}
+
+.text-border-black,
+.text-border-black-small {
+    -webkit-text-fill-color: #fff;
+    -webkit-text-stroke-width: var(--text-border-width);
+    -webkit-text-stroke-color: #000;
+}
+
+.text-effect {
+    font-size: 52px; /* Adjust to your needs */
+    font-weight: bold;
+    color: white;
+    text-shadow:
+        2px 2px 0 #000,
+        /* Right bottom */ -2px -2px 0 #000,
+        /* Left top */ -2px 2px 0 #000; /* Left bottom */
+}
+
+.image {
+    background-image: url("../../assets/paper.jpg");
+}
