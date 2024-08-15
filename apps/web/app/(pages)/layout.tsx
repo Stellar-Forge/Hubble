@@ -1,6 +1,8 @@
-import { DashboardIcon } from "@hubble/ui/DashboardIcon";
-import { DashboardWorkspaceIcon } from "@hubble/ui/DashboardWorkspaceIcon";
-import { SettingsIcon } from "@hubble/ui/DashboardWorkspaceIcon";
+import {
+    DashboardIcon,
+    DashboardWorkspaceIcon,
+    SettingsIcon,
+} from "@hubble/ui/Icons";
 
 import { SidebarItem } from "@hubble/ui/SidebarItem";
 
@@ -14,19 +16,24 @@ export default function Layout({
             <div className="w-72 border-r border-slate-300 min-h-screen mr-4 pt-28">
                 <div>
                     <SidebarItem
-                        href={"/"}
+                        href={"/home"}
                         icon={<DashboardIcon />}
-                        title="Dashboard"
+                        title="Home"
                     />
                     <SidebarItem
-                        href={"/workspace"}
+                        href={"/explore"}
                         icon={<DashboardWorkspaceIcon />}
-                        title="Workspace"
+                        title="Explore"
                     />
                     <SidebarItem
-                        href={"/user-config"}
+                        href={"/notifications"}
                         icon={<SettingsIcon />}
-                        title="API Settings"
+                        title="Notifications"
+                    />
+                    <SidebarItem
+                        href={"/messages"}
+                        icon={<SettingsIcon />}
+                        title="Messages"
                     />
                 </div>
             </div>

@@ -10,8 +10,7 @@
     "license": "ISC",
     "description": "",
     "exports": {
-        "./encryptApiKey": "./src/index.ts",
-        "./decryptApiKey": "./src/index.ts"
+        "./crypto": "./src/index.ts"
     },
     "dependencies": {
         "@types/dotenv": "^6.1.1",

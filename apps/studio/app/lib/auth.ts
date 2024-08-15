@@ -3,7 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import bcrypt from "bcrypt";
-import { signinSchema } from "../../../../packages/zod-schema/src/userAuthSchema";
+import { signinSchema } from "@hubble/zod-schema/Schema";
 
 interface SigninParams {
     username: string;
@@ -101,5 +101,8 @@ export const authOptions = {
             // else if (new URL(url).origin === baseUrl) return url
             return "http://localhost:3000/";
         },
+    },
+    pages: {
+        signIn: "/auth/login",
     },
 };

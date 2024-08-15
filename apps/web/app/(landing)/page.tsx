@@ -1,18 +1,14 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function Landing() {
-    const router: any = useRouter();
-
+    const session = useSession();
+    console.log(session);
     return (
         <div>
-            Landing <br />
+            Landing
             <br />
-            <button onClick={() => router.push("/home")}>WEB</button> <br />
-            <button onClick={() => router.push("http://localhost:3000/")}>
-                STUDIO
-            </button>
         </div>
     );
 }
