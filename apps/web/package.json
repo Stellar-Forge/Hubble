@@ -5,7 +5,8 @@
     "scripts": {
         "dev": "next dev --turbo --port 3001",
         "build": "next build",
-        "start": "next start"
+        "start": "next start",
+        "lint": "next lint"
     },
     "dependencies": {
         "@hubble/actions": "*",

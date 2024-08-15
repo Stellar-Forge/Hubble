@@ -1,6 +1,7 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
+import "./style.css";
 
 export const SidebarItem = ({
     href,
@@ -16,17 +17,21 @@ export const SidebarItem = ({
     const selected = pathname === href;
 
     return (
-        <div
-            className={`flex ${selected ? "text-[#6a51a6]" : "text-slate-500"} cursor-pointer  p-2 pl-8`}
-            onClick={() => {
-                router.push(href);
-            }}
-        >
-            <div className="pr-2">{icon}</div>
+        <div className="group">
             <div
-                className={`font-bold ${selected ? "text-[#6a51a6]" : "text-slate-500"}`}
+                className={`flex ${selected ? "text-[#F3F3F2] bg-black " : "text-black"} cursor-pointer p-4 text-lg border-b hover:bg-black hover:text-[#F3F3F2] border-black w-full`}
+                onClick={() => {
+                    router.push(href);
+                }}
             >
-                {title}
+                <div className="pr-2">{icon}</div>
+                <div
+                    className={`font-medium ${selected ? "text-[#F3F3F2]" : "text-black"} group-hover:text-[#F3F3F2] group hover-parent`}
+                >
+                    <span className="underline-transition relative inline-block">
+                        {title}
+                    </span>
+                </div>
             </div>
         </div>
     );

@@ -13,33 +13,46 @@ export default function Layout({
 }): JSX.Element {
     return (
         <div className="flex">
-            <div className="w-72 border-r border-slate-300 min-h-screen mr-4 pt-28">
-                <div>
-                    <SidebarItem
-                        href={"/"}
-                        icon={<DashboardIcon />}
-                        title="Dashboard"
-                    />
-                    <SidebarItem
-                        href={"/workspace/1"}
-                        icon={<WorkspaceIcon />}
-                        title="Workspace 1"
-                    />
-                    <SidebarItem
-                        href={"/workspace/2"}
-                        icon={<WorkspaceIcon />}
-                        title="Workspace 2"
-                    />
-                    <SidebarItem
-                        href={"/workspace/3"}
-                        icon={<WorkspaceIcon />}
-                        title="Workspace 3"
-                    />
-                    <SidebarItem
-                        href={"/transactions"}
-                        icon={<AddWorkspaceIcon />}
-                        title="Add Workspace"
-                    />
+            <div className="flex w-1/6 border-r border-black min-h-screen">
+                <div className="flex flex-col w-full justify-between items-center my-5">
+                    <div>
+                        <a
+                            href="/"
+                            className="font-bold text-4xl drop-shadow-[2px_2px_1px_rgba(0,0,0,0.45)]"
+                        >
+                            Hubble
+                        </a>
+                    </div>
+                    <div className="border-t border-black w-full mb-10">
+                        <SidebarItem
+                            href={"/"}
+                            icon={<DashboardIcon />}
+                            title="Dashboard"
+                        />
+                        <SidebarItem
+                            href={"/workspace/1"}
+                            icon={<WorkspaceIcon />}
+                            title="Workspace 1"
+                        />
+                        <SidebarItem
+                            href={"/workspace/2"}
+                            icon={<WorkspaceIcon />}
+                            title="Workspace 2"
+                        />
+                        <SidebarItem
+                            href={"/workspace/3"}
+                            icon={<WorkspaceIcon />}
+                            title="Workspace 3"
+                        />
+                        <SidebarItem
+                            href={"/transactions"}
+                            icon={<AddWorkspaceIcon />}
+                            title="Add Workspace"
+                        />
+                    </div>
+                    <div className="font-bold text-4xl drop-shadow-[2px_2px_1px_rgba(0,0,0,0.45)]">
+                        Settings
+                    </div>
                 </div>
             </div>
             {children}
