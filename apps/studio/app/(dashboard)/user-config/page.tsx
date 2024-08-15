@@ -42,11 +42,25 @@ export default function Page() {
         return res.data;
     }
 
+    // Define the API_Platform enum locally
+    enum API_Platform {
+        Google = "Google",
+        OpenAI = "OpenAI",
+        GetImgAI = "GetImgAI",
+    }
+
+    function mapPlatform(platform: string): API_Platform {
+        if (platform === "Gemini") return API_Platform.Google;
+        return API_Platform.GetImgAI;
+    }
+
     useEffect(() => {
         // Make this entire page do SSR, then no need for this use effect
         savedKeys();
         setKeyDidUpdate(false);
     }, [keyDidUpdate]);
+
+    const platform = mapPlatform(model);
 
     return (
         <div>
@@ -80,18 +94,23 @@ export default function Page() {
             <button
                 className="m-7"
                 onClick={async () => {
-                    setLoading(true);
-                    const res = await checkAPIKey(input);
-                    setLoading(false);
-                    if (!res.success) {
-                        alert("Invalid API Key!");
-                        setSaveButtonVisible(false);
-                    } else if (model === "Gemini") {
-                        setUsableModels(res.response.models);
-                        setSaveButtonVisible(true);
-                    } else {
-                        setUsableModels(res.response);
-                        setSaveButtonVisible(true);
+                    const isEmpty = (value: string) =>
+                        value.trim().length === 0;
+                    if (isEmpty(input)) alert("No API Key Entered!");
+                    else {
+                        setLoading(true);
+                        const res = await checkAPIKey(input);
+                        setLoading(false);
+                        if (!res.success) {
+                            alert("Invalid API Key!");
+                            setSaveButtonVisible(false);
+                        } else if (model === "Gemini") {
+                            setUsableModels(res.response.models);
+                            setSaveButtonVisible(true);
+                        } else {
+                            setUsableModels(res.response);
+                            setSaveButtonVisible(true);
+                        }
                     }
                 }}
             >
@@ -101,19 +120,28 @@ export default function Page() {
                 <button
                     className="m-7"
                     onClick={async () => {
-                        const encryptedCode = encryptApiKey(input);
-                        setLoading(true);
-                        type ModelPlatform = "Gemini" | "GetImgAI";
-                        const modelPlatform = model as ModelPlatform; // telling model is type ModelPlatform
-                        const res = await saveAPIKey(
-                            encryptedCode,
-                            modelPlatform,
+                        const isAlreadySaved = userKeys.some(
+                            (e: any) => e.platform === platform,
                         );
-                        setLoading(false);
-                        if (!res) alert("Some Error Occured!");
+                        if (isAlreadySaved)
+                            alert(
+                                `You Have Already Saved An API Key For ${model}, Delete It First To Save A New API Key!`,
+                            );
                         else {
-                            setKeyDidUpdate(true);
-                            alert("API Key Saved Successfully!");
+                            const encryptedCode = encryptApiKey(input);
+                            setLoading(true);
+                            type ModelPlatform = "Gemini" | "GetImgAI";
+                            const modelPlatform = model as ModelPlatform; // telling model is type ModelPlatform
+                            const res = await saveAPIKey(
+                                encryptedCode,
+                                modelPlatform,
+                            );
+                            setLoading(false);
+                            if (!res) alert("Some Error Occured!");
+                            else {
+                                setKeyDidUpdate(true);
+                                alert("API Key Saved Successfully!");
+                            }
                         }
                     }}
                 >
