@@ -7,8 +7,13 @@ import { ModelItem } from "@hubble/ui/ModelItem";
 import { saveAPIKey } from "@hubble/actions/saveAPIKey";
 import { checkAddedKeys } from "@hubble/actions/checkAddedKeys";
 import { Loader } from "@hubble/ui/Loader";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 export default function Page() {
+    const session = useSession();
+    if (!session.data?.user) redirect("/api/auth/signin");
+
     const [input, setInput] = useState("");
     const [userKeys, setUserKeys] = useState([{}]);
     const [keyDidUpdate, setKeyDidUpdate] = useState(false);

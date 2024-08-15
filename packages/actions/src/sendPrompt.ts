@@ -119,6 +119,13 @@ export async function getImgAIPrompt({
         });
         console.log(res.data);
 
+        if (!res.data.success) {
+            return {
+                message: res.data.response,
+                success: false,
+            };
+        }
+
         return {
             response: res.data.response,
             success: true,
