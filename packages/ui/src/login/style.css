@@ -22,15 +22,3 @@
 .image {
     background-image: url("../../assets/paper.jpg");
 }
-
-a:link,
-a:visited {
-    color: (internal value);
-    text-decoration: underline;
-    cursor: auto;
-}
-
-a:link:active,
-a:visited:active {
-    color: (internal value);
-}

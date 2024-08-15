@@ -1,6 +1,7 @@
 "use client";
 
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface UserParams {
     username?: string;
@@ -15,16 +16,19 @@ function mapAuthType(authType: string) {
 }
 
 export function Button({ username, password, authType }: UserParams) {
+    const router = useRouter();
     return (
         <div>
             <button
                 onClick={async () => {
                     if (authType === "credentials") {
-                        await signIn(authType, {
+                        const res = await signIn(authType, {
                             username,
                             password,
-                            redirect: true,
+                            redirect: false,
                         });
+                        if (res?.ok) router.push("/");
+                        else alert("Wrong Credentials !");
                     } else await signIn(authType);
                 }}
                 type="button"
