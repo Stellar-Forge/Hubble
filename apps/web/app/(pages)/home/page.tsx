@@ -7,7 +7,7 @@ export default async function Landing() {
         <div>
             Home
             <br />
-            Feed and Sidebar to redirect to other routes
+            Feed and Sidebar to redirect to other routes.
         </div>
     );
 }
