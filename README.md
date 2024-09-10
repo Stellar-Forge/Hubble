@@ -1,81 +1,108 @@
-# Turborepo starter
+# Hubble: The AI-Powered Social Network
 
-This is an official starter Turborepo.
+## 🌌 Welcome to the Hubble Universe!
 
-## Using this example
+Hubble is not just another social networking platform – it's a revolutionary space where creativity meets artificial intelligence. Imagine a world where every post, every image, and every video is a unique piece of AI-generated art. Welcome to Hubble, where the future of social media is unfolding!
 
-Run the following command:
+### 🚀 Key Features
 
-```sh
-npx create-turbo@latest
+-   **AI-Only Content**: A twist on traditional social media – all content must be AI-generated.
+
+-   **In-House Studio**: Create, edit, and perfect your AI masterpieces without ever leaving the platform.
+
+-   **Multi-Platform AI Integration**: Connect your preferred AI service and create directly within Hubble.
+
+-   **Advanced Editing Tools**: Polish your AI-generated content with our built-in editor.
+
+-   **Social Networking**: Share, like, and collaborate with a community of AI enthusiasts and creators.
+
+## 🎨 The Hubble Studio
+
+Our state-of-the-art studio is where the magic happens:
+
+1.  **API Key Management**: Securely store and manage your AI platform API keys.
+
+2.  **Prompt Engineering**: Craft the perfect prompts to bring your ideas to life.
+
+3.  **Multi-Model Support**: Choose from a variety of AI models to suit your creative needs.
+
+4.  **Real-Time Generation**: Watch as your ideas transform into stunning visuals or text.
+
+5.  **Advanced Editing**: Fine-tune your creations with our comprehensive editing tools.
+
+## 🌐 The Social Network
+
+Once you've crafted your AI masterpiece, share it with the world:
+
+-   **Publish**: Share your creations on your Hubble profile.
+
+-   **Discover**: Explore a feed of incredible AI-generated content from other users.
+
+-   **Interact**: Like, comment, and collaborate on posts that inspire you.
+
+-   **Collaborate**: Join forces with other creators for mind-bending AI collaborations.
+
+## 🏗 Architecture
+
+Hubble's architecture is designed for scalability, performance, and seamless integration with various AI models. Here's an overview of our system:
+
+<img src="https://i.ibb.co/C7XSnyy/Screenshot-from-2024-08-09-17-57-50.png" alt="Screenshot-from-2024-08-09-17-57-50" border="0">
+
+## 🛠 Technology Stack
+
+-   Frontend: Next.js
+
+-   Backend: Next.js
+-   Authentication: NextAuth.js
+
+-   Web-Hook: Express
+
+-   Database:
+
+    -   PostgreSQL with Prisma ORM
+    -   Object Store: S3 with CDN (Cloudfront)
+
+-   AI Integration: OpenAI, Midjourney, Gemini, DALL-E, and more
+
+-   Image Processing: Canvas API
+
+## 🚀 Getting Started
+
+1. Clone the repository:
+
+```
+git clone https://github.com/Stellar-Forge/Hubble.git
 ```
 
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
+2. Install dependencies:
 
 ```
-cd my-turborepo
-pnpm build
+cd Hubble
+npm install
 ```
 
-### Develop
+3. Set up your environment variables in a `.env` file using the help of `.env.example`
 
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+4. Run the development server:
 
 ```
-cd my-turborepo
-npx turbo login
+npm run dev
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to see Hubble in action!
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+## 🤝 Contributing
 
-```
-npx turbo link
-```
+We welcome contributions to Hubble! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) file for details on how to get involved.
 
-## Useful Links
+## 📜 License
 
-Learn more about the power of Turborepo:
+Hubble is released under the [MIT License](LICENSE).
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+## 📞 Contact
+
+Have questions or want to get in touch? Reach out to us at [itsrahulbarman1@gmail.com](mailto:itsrahulbarman1@gmail.com).
+
+---
+
+Join us in redefining social media with the power of AI. Welcome to Hubble – where every post is a glimpse into the future of creativity!

@@ -56,7 +56,12 @@ export function SignupCard({ onSignIn }: CardProps) {
                             Already have an account?
                             <br />
                             <div className="flex justify-center">
-                                <a href="/auth/login" className="cursor-pointer" >Sign in</a>
+                                <a
+                                    href="/auth/login"
+                                    className="cursor-pointer"
+                                >
+                                    Sign in
+                                </a>
                             </div>
                         </div>
                     </div>

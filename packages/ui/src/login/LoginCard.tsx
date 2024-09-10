@@ -48,10 +48,13 @@ export function LoginCard() {
                             <Button authType={"github"} />
                         </div>
                         <div className="m-5">
-
-                            <h1 className=" text-center">Don't have an account? </h1>
+                            <h1 className=" text-center">
+                                Don't have an account?{" "}
+                            </h1>
                             <div className="flex justify-center">
-                                <a href="/signup" className=" cursor-pointer">Signup</a>
+                                <a href="/signup" className=" cursor-pointer">
+                                    Signup
+                                </a>
                             </div>
                         </div>
                     </div>

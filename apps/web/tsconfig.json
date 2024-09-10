@@ -1,18 +1,28 @@
 {
-  "extends": "@repo/typescript-config/nextjs.json",
-  "compilerOptions": {
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
-  },
-  "include": [
-    "next-env.d.ts",
-    "next.config.mjs",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": ["node_modules"]
+    "extends": "@repo/typescript-config/nextjs.json",
+    "compilerOptions": {
+        "plugins": [
+            {
+                "name": "next"
+            }
+        ]
+    },
+    "include": [
+        "next-env.d.ts",
+        "next.config.mjs",
+        "**/*.ts",
+        "**/*.tsx",
+        "**/*.js",
+        "**/*.jsx",
+        ".next/types/**/*.ts",
+        "../../packages/actions/src/saveResult.ts",
+        "../../packages/ui/src/studio/AppbarClient.tsx",
+        "../../packages/ui/src/studio/Icons.tsx",
+        "../../packages/ui/src/studio/ImageDisplay.tsx",
+        "../../packages/ui/src/studio/Loader.tsx",
+        "../../packages/ui/src/studio/ModelItem.tsx",
+        "../../packages/ui/src/studio/SidebarItemClient.tsx",
+        "../../packages/ui/src/studio/WorkspaceLanding.tsx"
+    ],
+    "exclude": ["node_modules"]
 }
