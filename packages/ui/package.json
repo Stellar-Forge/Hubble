@@ -14,7 +14,8 @@
         "./ModelItem": "./src/studio/ModelItem.tsx",
         "./SidebarItem": "./src/studio/SidebarItemClient.tsx",
         "./WorkspaceLanding": "./src/studio/WorkspaceLanding.tsx",
-        "./LoginCard": "./src/login/LoginCard.tsx"
+        "./LoginCard": "./src/login/LoginCard.tsx",
+        "./Content": "./src/user-config/Content.tsx"
     },
     "scripts": {
         "lint": "eslint . --max-warnings 0",
