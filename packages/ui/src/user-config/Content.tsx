@@ -8,6 +8,7 @@ import { ModelItem } from "@hubble/ui/ModelItem";
 import { saveAPIKey } from "@hubble/actions/saveAPIKey";
 import { checkAddedKeys } from "@hubble/actions/checkAddedKeys";
 import { Loader } from "@hubble/ui/Loader";
+import { toast } from "sonner";
 
 export function Content() {
     const [input, setInput] = useState("");
@@ -92,13 +93,13 @@ export function Content() {
                     onClick={async () => {
                         const isEmpty = (value: string) =>
                             value.trim().length === 0;
-                        if (isEmpty(input)) alert("No API Key Entered!");
+                        if (isEmpty(input)) toast.error("No API Key Entered!");
                         else {
                             setLoading(true);
                             const res = await checkAPIKey(input);
                             setLoading(false);
                             if (!res.success) {
-                                alert("Invalid API Key!");
+                                toast.error("Invalid API Key!");
                                 setSaveButtonVisible(false);
                             } else if (model === "Gemini") {
                                 setUsableModels(res.response.models);
@@ -120,7 +121,7 @@ export function Content() {
                                 (e: any) => e.platform === platform,
                             );
                             if (isAlreadySaved)
-                                alert(
+                                toast.error(
                                     `You Have Already Saved An API Key For ${model}, Delete It First To Save A New API Key!`,
                                 );
                             else {
@@ -133,10 +134,12 @@ export function Content() {
                                     modelPlatform,
                                 );
                                 setLoading(false);
-                                if (!res) alert("Some Error Occured!");
+                                if (!res) toast.error("Some Error Occured!");
                                 else {
                                     setKeyDidUpdate(true);
-                                    alert("API Key Saved Successfully!");
+                                    toast.success(
+                                        "API Key Saved Successfully!",
+                                    );
                                 }
                             }
                         }}

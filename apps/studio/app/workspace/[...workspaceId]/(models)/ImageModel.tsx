@@ -14,6 +14,7 @@ import {
 } from "@hubble/store/useUpdateWorkspaceImage";
 import { getImgAIPrompt } from "@hubble/actions/TextPrompt";
 import { Loader } from "@hubble/ui/Loader";
+import { toast } from "sonner";
 
 export function ImageModel({ params }: any) {
     const submitButtonRef: any = useRef();
@@ -148,7 +149,7 @@ export function ImageModel({ params }: any) {
                     });
                     setLoading(false);
                     if (!res?.success) {
-                        alert(res?.message);
+                        toast.error(res?.message);
                     } else if (currentResponseFormat === "b64") {
                         updateWorkspaceImage(res.response.image, workspaceId);
                         updateWorkspaceIsUrl(false, workspaceId);

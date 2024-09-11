@@ -41,7 +41,7 @@ export async function signup({ username, email, password }: SignupParams) {
             },
         });
         return {
-            msg: "Congrats! You're Signed Up. Please Login To Enter The App",
+            msg: "Congrats, You're Signed Up!",
             success: true,
         };
     } catch (e) {

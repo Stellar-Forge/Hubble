@@ -2,6 +2,7 @@
 
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface UserParams {
     username?: string;
@@ -28,7 +29,7 @@ export function Button({ username, password, authType }: UserParams) {
                             redirect: false,
                         });
                         if (res?.ok) router.push("/");
-                        else alert("Wrong Credentials !");
+                        else toast.error("Wrong Credentials!");
                     } else await signIn(authType);
                 }}
                 type="button"

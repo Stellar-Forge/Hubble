@@ -9,6 +9,7 @@ import { redirect } from "next/navigation";
 import { saveResult } from "@hubble/actions/saveResult";
 import { geminiTextPrompt } from "@hubble/actions/TextPrompt";
 import { Loader } from "@hubble/ui/Loader";
+import { toast } from "sonner";
 
 export function TextModel({ params }: any) {
     const { data: session, status } = useSession();
@@ -64,7 +65,7 @@ export function TextModel({ params }: any) {
                     const res = await geminiTextPrompt(input);
                     setLoading(false);
                     if (!res?.success) {
-                        alert(res?.message);
+                        toast.error(res?.message);
                     } else {
                         updateWorkspace(workspaceId, res.response);
                     }
@@ -84,9 +85,9 @@ export function TextModel({ params }: any) {
                     );
                     setLoading(false);
                     if (!res) {
-                        alert("Some Error Occured during Saving!");
+                        toast.error("Some Error Occured during Saving!");
                     } else {
-                        alert("Response History Saved Successfully");
+                        toast.success("Response History Saved Successfully");
                     }
                 }}
             >
@@ -94,7 +95,10 @@ export function TextModel({ params }: any) {
             </button>
             <button
                 className="bg-zinc-300 rounded-md m-5"
-                onClick={() => clearHistory(workspaceId)}
+                onClick={() => {
+                    clearHistory(workspaceId);
+                    toast.success("History Cleared For This Workspace!");
+                }}
             >
                 Clear History
             </button>
