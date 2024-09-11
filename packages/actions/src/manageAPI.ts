@@ -49,3 +49,29 @@ export async function saveAPIKey(
         return false;
     }
 }
+
+function mapPlatformToEnum(platform: string) {
+    if (platform === "Google") return API_Platform.Google;
+    else return API_Platform.GetImgAI;
+}
+
+export async function deleteAPIKey(platform: any) {
+    const session = await getServerSession(authOptions);
+    const userId = Number(session.user.id);
+    const apiPlatform = mapPlatformToEnum(platform);
+
+    try {
+        const res = prisma.aPI_Key.delete({
+            where: {
+                userId_platform: {
+                    userId,
+                    platform: apiPlatform,
+                },
+            },
+        });
+        return res;
+    } catch (e) {
+        console.log("Error Occured: ", e);
+        return false;
+    }
+}

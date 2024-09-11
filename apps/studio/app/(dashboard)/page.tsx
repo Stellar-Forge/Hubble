@@ -1,4 +1,4 @@
-import { checkAuth } from "../../../../packages/actions/src/checkAuth";
+import { checkAuth } from "@hubble/actions/checkAuth";
 
 export default async function Home() {
     const session = await checkAuth();

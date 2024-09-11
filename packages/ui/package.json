@@ -11,12 +11,12 @@
         "./Icons": "./src/studio/Icons.tsx",
         "./ImageDisplay": "./src/studio/ImageDisplay.tsx",
         "./Loader": "./src/studio/Loader.tsx",
-        "./ModelItem": "./src/studio/user-config/ModelItem.tsx",
+        "./SavedAPICard": "./src/studio/user-config/SavedAPICard.tsx",
+        "./ModelItem": "./src/studio/ModelItem.tsx",
         "./SidebarItem": "./src/studio/SidebarItemClient.tsx",
         "./WorkspaceLanding": "./src/studio/WorkspaceLanding.tsx",
         "./LoginCard": "./src/login/LoginCard.tsx",
-        "./SavedAPICard": "./src/studio/user-config/SavedAPICard.tsx",
-        "./ModelSidebarIcon": "./src/studio/Icons.tsx"
+        "./Content": "./src/user-config/Content.tsx"
     },
     "scripts": {
         "lint": "eslint . --max-warnings 0",

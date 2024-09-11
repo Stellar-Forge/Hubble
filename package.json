@@ -7,7 +7,9 @@
         "lint": "turbo lint",
         "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
         "prisma:generate": "cd ./packages/prisma && npx prisma generate && cd ../..",
-        "start:studio": "cd ./apps/studio && npm run start"
+        "start:studio": "cd ./apps/studio && npm run start",
+        "start:web": "cd ./apps/web && npm run start",
+        "start:webhook": "cd ./apps/prompt-webhook && npm run start"
     },
     "devDependencies": {
         "eslint": "^8.57.0",

@@ -1,4 +1,5 @@
 import { signup } from "@hubble/actions/signup";
+import { toast } from "sonner";
 
 interface UserParams {
     username: string;
@@ -13,12 +14,11 @@ export function Button({ username, email, password, onSignIn }: UserParams) {
             onClick={async () => {
                 const res = await signup({ username, email, password });
                 if (res.success) {
-                    alert(res.msg);
-                    onSignIn();
+                    toast.success(res.msg);
+                    setTimeout(onSignIn, 1500);
                 } else {
-                    alert(res.msg);
+                    toast.error(res.msg);
                 }
-
                 console.log(
                     `This is the client receiving the response: ${res}`,
                 );

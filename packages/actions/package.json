@@ -15,7 +15,7 @@
     "exports": {
         "./checkAuth": "./src/checkAuth.ts",
         "./checkAddedKeys": "./src/checkAddedKeys.ts",
-        "./saveAPIKey": "./src/saveAPI.ts",
+        "./manageAPIKeys": "./src/manageAPI.ts",
         "./saveResult": "./src/saveResult.ts",
         "./TextPrompt": "./src/sendPrompt.ts",
         "./signup": "./src/signup.ts"
