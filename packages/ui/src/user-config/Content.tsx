@@ -5,10 +5,11 @@ import { useEffect, useState } from "react";
 import { encryptApiKey } from "@hubble/crypto/crypto";
 import axios from "axios";
 import { ModelItem } from "@hubble/ui/ModelItem";
-import { saveAPIKey } from "@hubble/actions/saveAPIKey";
+import { saveAPIKey, deleteAPIKey } from "@hubble/actions/manageAPIKeys";
 import { checkAddedKeys } from "@hubble/actions/checkAddedKeys";
 import { Loader } from "@hubble/ui/Loader";
 import { toast } from "sonner";
+import { PlatformButton } from "./PlatformButton";
 
 export function Content() {
     const [input, setInput] = useState("");
@@ -140,6 +141,9 @@ export function Content() {
                                     toast.success(
                                         "API Key Saved Successfully!",
                                     );
+                                    await savedKeys();
+                                    setSaveButtonVisible(false);
+                                    setInput("");
                                 }
                             }
                         }}
@@ -151,18 +155,30 @@ export function Content() {
                 )}
             </div>
             <div>Connected API Keys - </div>
-            <div>{JSON.stringify(userKeys.map((e: any) => e.platform))}</div>
-            {`Your Available Models For Current API Key: `}
-            {saveButtonVisible
-                ? usableModels.map((e: any, index) => (
-                      <ModelItem
-                          key={index}
-                          displayName={
-                              model === "Gemini" ? e.displayName : e.name
-                          }
-                      />
-                  ))
-                : ""}
+            <div>
+                {userKeys.map((e: any, index: any) => (
+                    <PlatformButton
+                        key={index}
+                        platform={e.platform}
+                        apiKey={e.API_Key}
+                        deleteAPIKey={deleteAPIKey}
+                        savedKeys={savedKeys}
+                    />
+                ))}
+            </div>
+            {saveButtonVisible && (
+                <>
+                    Your Available Models For Current API Key:
+                    {usableModels.map((e: any, index) => (
+                        <ModelItem
+                            key={index}
+                            displayName={
+                                model === "Gemini" ? e.displayName : e.name
+                            }
+                        />
+                    ))}
+                </>
+            )}
             {loading ? <Loader /> : ""}
         </div>
     );

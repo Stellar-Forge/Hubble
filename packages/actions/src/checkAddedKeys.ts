@@ -3,6 +3,7 @@
 import prisma from "@hubble/prisma/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../../apps/studio/app/lib/auth";
+import { decryptApiKey } from "@hubble/crypto/crypto";
 
 export async function checkAddedKeys() {
     const session = await getServerSession(authOptions);
@@ -14,7 +15,13 @@ export async function checkAddedKeys() {
             },
             select: {
                 platform: true,
+                API_Key: true,
             },
+        });
+
+        res.forEach((e) => {
+            const decrypted_API_KEY = decryptApiKey(e.API_Key);
+            e.API_Key = decrypted_API_KEY;
         });
 
         return res;
