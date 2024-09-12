@@ -4,10 +4,9 @@
 import { useEffect, useState } from "react";
 import { encryptApiKey } from "@hubble/crypto/crypto";
 import axios from "axios";
-import { ModelItem } from "@hubble/ui/ModelItem";
 import { saveAPIKey, deleteAPIKey } from "@hubble/actions/manageAPIKeys";
 import { checkAddedKeys } from "@hubble/actions/checkAddedKeys";
-import { Loader } from "@hubble/ui/Loader";
+import { LoadingAlert } from "@hubble/ui/Loader";
 import { toast } from "sonner";
 import { PlatformButton } from "./PlatformButton";
 
@@ -59,6 +58,7 @@ export function Content() {
     }, [keyDidUpdate]);
 
     const platform = mapPlatform(model);
+    LoadingAlert(loading);
 
     return (
         <div className="flex flex-col grow justify-center items-center">
@@ -105,9 +105,11 @@ export function Content() {
                             } else if (model === "Gemini") {
                                 setUsableModels(res.response.models);
                                 setSaveButtonVisible(true);
+                                toast.success("API Key Verified!");
                             } else {
                                 setUsableModels(res.response);
                                 setSaveButtonVisible(true);
+                                toast.success("API Key Verified!");
                             }
                         }
                     }}
@@ -123,7 +125,7 @@ export function Content() {
                             );
                             if (isAlreadySaved)
                                 toast.error(
-                                    `You Have Already Saved An API Key For ${model}, Delete It First To Save A New API Key!`,
+                                    `You Have Already Saved An API Key For ${platform}, Delete It First To Save A New API Key!`,
                                 );
                             else {
                                 const encryptedCode = encryptApiKey(input);
@@ -166,20 +168,6 @@ export function Content() {
                     />
                 ))}
             </div>
-            {saveButtonVisible && (
-                <>
-                    Your Available Models For Current API Key:
-                    {usableModels.map((e: any, index) => (
-                        <ModelItem
-                            key={index}
-                            displayName={
-                                model === "Gemini" ? e.displayName : e.name
-                            }
-                        />
-                    ))}
-                </>
-            )}
-            {loading ? <Loader /> : ""}
         </div>
     );
 }
