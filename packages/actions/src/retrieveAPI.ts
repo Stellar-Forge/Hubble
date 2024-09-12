@@ -7,7 +7,7 @@ import { authOptions } from "../../../apps/studio/app/lib/auth";
 import { decryptApiKey } from "@hubble/crypto/crypto";
 import axios from "axios";
 
-export async function checkAddedKeys() {
+export async function getSavedKeys() {
     const session = await getServerSession(authOptions);
     const userId = Number(session.user.id);
     try {
@@ -40,7 +40,7 @@ export async function getModelsInfo(model: string) {
         model === "Gemini" ? API_Platform.Google : API_Platform.GetImgAI;
 
     const platform = mapModelToEnum(model);
-    const userKeys = await checkAddedKeys();
+    const userKeys = await getSavedKeys();
 
     console.log(urlModel, platform, userKeys);
 

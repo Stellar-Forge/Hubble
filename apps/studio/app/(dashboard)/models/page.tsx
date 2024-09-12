@@ -2,7 +2,7 @@
 
 import { ModelItem } from "@hubble/ui/ModelItem";
 import { useState } from "react";
-import { getModelsInfo } from "@hubble/actions/checkAddedKeys";
+import { getModelsInfo } from "@hubble/actions/retrieveAPI";
 import { LoadingAlert } from "@hubble/ui/Loader";
 import { toast } from "sonner";
 

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { encryptApiKey } from "@hubble/crypto/crypto";
 import axios from "axios";
 import { saveAPIKey, deleteAPIKey } from "@hubble/actions/manageAPIKeys";
-import { checkAddedKeys } from "@hubble/actions/checkAddedKeys";
+import { getSavedKeys } from "@hubble/actions/retrieveAPI";
 import { LoadingAlert } from "@hubble/ui/Loader";
 import { toast } from "sonner";
 import { PlatformButton } from "./PlatformButton";
@@ -14,13 +14,13 @@ export function Content() {
     const [input, setInput] = useState("");
     const [userKeys, setUserKeys] = useState([{}]);
     const [keyDidUpdate, setKeyDidUpdate] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [saveButtonVisible, setSaveButtonVisible] = useState(false);
     const [model, setModel] = useState("Gemini");
     const [usableModels, setUsableModels] = useState([{}]);
 
-    async function savedKeys() {
-        const savedKeys = await checkAddedKeys();
+    async function retrieveUserApiKeys() {
+        const savedKeys = await getSavedKeys();
         setUserKeys(savedKeys);
     }
 
@@ -53,12 +53,12 @@ export function Content() {
 
     useEffect(() => {
         // Make this entire page do SSR, then no need for this use effect
-        savedKeys();
+        retrieveUserApiKeys();
         setKeyDidUpdate(false);
     }, [keyDidUpdate]);
 
     const platform = mapPlatform(model);
-    LoadingAlert(loading, "Verifying API Key...");
+    LoadingAlert(isLoading);
 
     return (
         <div className="flex flex-col grow justify-center items-center">
@@ -96,9 +96,9 @@ export function Content() {
                             value.trim().length === 0;
                         if (isEmpty(input)) toast.error("No API Key Entered!");
                         else {
-                            setLoading(true);
+                            setIsLoading(true);
                             const res = await checkAPIKey(input);
-                            setLoading(false);
+                            setIsLoading(false);
                             if (!res.success) {
                                 toast.error("Invalid API Key!");
                                 setSaveButtonVisible(false);
@@ -129,21 +129,21 @@ export function Content() {
                                 );
                             else {
                                 const encryptedCode = encryptApiKey(input);
-                                setLoading(true);
+                                setIsLoading(true);
                                 type ModelPlatform = "Gemini" | "GetImgAI";
                                 const modelPlatform = model as ModelPlatform; // telling model is type ModelPlatform
                                 const res = await saveAPIKey(
                                     encryptedCode,
                                     modelPlatform,
                                 );
-                                setLoading(false);
+                                setIsLoading(false);
                                 if (!res) toast.error("Some Error Occured!");
                                 else {
                                     setKeyDidUpdate(true);
                                     toast.success(
                                         "API Key Saved Successfully!",
                                     );
-                                    await savedKeys();
+                                    await retrieveUserApiKeys();
                                     setSaveButtonVisible(false);
                                     setInput("");
                                 }
@@ -164,7 +164,7 @@ export function Content() {
                         platform={e.platform}
                         apiKey={e.API_Key}
                         deleteAPIKey={deleteAPIKey}
-                        savedKeys={savedKeys}
+                        savedKeys={retrieveUserApiKeys}
                     />
                 ))}
             </div>
