@@ -5,7 +5,8 @@ export function Loader() {
 }
 
 let toastId: any;
-export function LoadingAlert(isLoading: boolean) {
-    if (isLoading) toastId = toast.loading("Waiting For Response...");
+export function LoadingAlert(isLoading: boolean, content?: string) {
+    if (isLoading)
+        toastId = toast.loading(content || "Waiting For Response...");
     else toast.dismiss(toastId);
 }

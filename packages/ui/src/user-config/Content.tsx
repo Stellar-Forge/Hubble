@@ -58,7 +58,7 @@ export function Content() {
     }, [keyDidUpdate]);
 
     const platform = mapPlatform(model);
-    LoadingAlert(loading);
+    LoadingAlert(loading, "Verifying API Key...");
 
     return (
         <div className="flex flex-col grow justify-center items-center">
