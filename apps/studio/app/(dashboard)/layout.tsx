@@ -47,7 +47,7 @@ export default function Layout({
                         />
                     </div>
                     <div className="font-bold text-4xl drop-shadow-[2px_2px_1px_rgba(0,0,0,0.45)]">
-                        Settings
+                        <a href="/settings">Settings</a>
                     </div>
                 </div>
             </div>
