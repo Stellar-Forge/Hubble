@@ -61,112 +61,118 @@ export function Content() {
     LoadingAlert(isLoading);
 
     return (
-        <div className="flex flex-col grow justify-center items-center">
-            <label className="m-3">
-                <h1 className="text-6xl font-bold drop-shadow-[2px_2px_1px_rgba(0,0,0,0.45)] transition hover:drop-shadow-[10px_10px_5px_rgba(0,0,0,0.45)] ease-out duration-500">
-                    Add Your API Keys
-                </h1>
-            </label>
-            <div className="m-5 w-full flex justify-center items-center">
-                <select
-                    className="border-2 border-black p-2 rounded-lg"
-                    value={model}
-                    onChange={(e) => {
-                        setModel(e.target.value);
-                        setSaveButtonVisible(false);
-                    }}
-                >
-                    <option value="Gemini">Gemini</option>
-                    <option value="GetImgAI">GetImg.AI</option>
-                </select>
-                <input
-                    className="m-3 border-2 border-black p-2 rounded-lg w-1/2"
-                    value={input}
-                    type="text"
-                    placeholder="API KEY"
-                    onChange={(e) => {
-                        setInput(e.target.value);
-                        setSaveButtonVisible(false);
-                    }}
-                />
-                <button
-                    className="border-2 border-black p-2 rounded-lg"
-                    onClick={async () => {
-                        const isEmpty = (value: string) =>
-                            value.trim().length === 0;
-                        if (isEmpty(input)) toast.error("No API Key Entered!");
-                        else {
-                            setIsLoading(true);
-                            const res = await checkAPIKey(input);
-                            setIsLoading(false);
-                            if (!res.success) {
-                                toast.error("Invalid API Key!");
-                                setSaveButtonVisible(false);
-                            } else if (model === "Gemini") {
-                                setUsableModels(res.response.models);
-                                setSaveButtonVisible(true);
-                                toast.success("API Key Verified!");
-                            } else {
-                                setUsableModels(res.response);
-                                setSaveButtonVisible(true);
-                                toast.success("API Key Verified!");
-                            }
-                        }
-                    }}
-                >
-                    Check
-                </button>
-                {saveButtonVisible ? (
+        <div className="flex grow">
+            <div className="flex flex-col grow justify-center items-center border-2 border-black m-10 rounded-xl bg-[#F3F3F2] transition hover:drop-shadow-[1px_1px_30px_rgba(0,0,0,0.75)] ease-out duration-400">
+                <label className="m-3">
+                    <h1 className="text-6xl font-bold drop-shadow-[2px_2px_1px_rgba(0,0,0,0.45)] transition hover:drop-shadow-[10px_10px_5px_rgba(0,0,0,0.45)] ease-out duration-500">
+                        Add Your API Keys
+                    </h1>
+                </label>
+                <div className="m-5 w-full flex justify-center items-center">
+                    <select
+                        className="border-2 border-black p-2 rounded-lg hover:bg-black hover:text-[#F3F3F2]"
+                        value={model}
+                        onChange={(e) => {
+                            setModel(e.target.value);
+                            setSaveButtonVisible(false);
+                        }}
+                    >
+                        <option value="Gemini">Gemini</option>
+                        <option value="GetImgAI">GetImg.AI</option>
+                    </select>
+                    <input
+                        className="m-3 border-2 border-black p-2 rounded-lg w-1/2"
+                        value={input}
+                        type="text"
+                        placeholder="API KEY"
+                        onChange={(e) => {
+                            setInput(e.target.value);
+                            setSaveButtonVisible(false);
+                        }}
+                    />
                     <button
-                        className="ml-3 border-2 border-black p-2 rounded-lg"
+                        className="border-2 border-black p-2 rounded-lg hover:bg-black hover:text-[#F3F3F2]"
                         onClick={async () => {
-                            const isAlreadySaved = userKeys.some(
-                                (e: any) => e.platform === platform,
-                            );
-                            if (isAlreadySaved)
-                                toast.error(
-                                    `You Have Already Saved An API Key For ${platform}, Delete It First To Save A New API Key!`,
-                                );
+                            const isEmpty = (value: string) =>
+                                value.trim().length === 0;
+                            if (isEmpty(input))
+                                toast.error("No API Key Entered!");
                             else {
-                                const encryptedCode = encryptApiKey(input);
                                 setIsLoading(true);
-                                type ModelPlatform = "Gemini" | "GetImgAI";
-                                const modelPlatform = model as ModelPlatform; // telling model is type ModelPlatform
-                                const res = await saveAPIKey(
-                                    encryptedCode,
-                                    modelPlatform,
-                                );
+                                const res = await checkAPIKey(input);
                                 setIsLoading(false);
-                                if (!res) toast.error("Some Error Occured!");
-                                else {
-                                    setKeyDidUpdate(true);
-                                    toast.success(
-                                        "API Key Saved Successfully!",
-                                    );
-                                    await retrieveUserApiKeys();
+                                if (!res.success) {
+                                    toast.error("Invalid API Key!");
                                     setSaveButtonVisible(false);
-                                    setInput("");
+                                } else if (model === "Gemini") {
+                                    setUsableModels(res.response.models);
+                                    setSaveButtonVisible(true);
+                                    toast.success("API Key Verified!");
+                                } else {
+                                    setUsableModels(res.response);
+                                    setSaveButtonVisible(true);
+                                    toast.success("API Key Verified!");
                                 }
                             }
                         }}
                     >
-                        Save
+                        Check
                     </button>
-                ) : (
-                    ""
-                )}
-            </div>
-            <div>Connected API Keys - </div>
-            <div>
-                {userKeys.map((e: any, index: any) => (
-                    <PlatformButton
-                        key={index}
-                        platform={e.platform}
-                        apiKey={e.API_Key}
-                        deleteAPIKey={deleteAPIKey}
-                        savedKeys={retrieveUserApiKeys}
-                    />
-                ))}
+                    {saveButtonVisible ? (
+                        <button
+                            className="ml-3 border-2 border-black p-2 rounded-lg hover:bg-black hover:text-[#F3F3F2]"
+                            onClick={async () => {
+                                const isAlreadySaved = userKeys.some(
+                                    (e: any) => e.platform === platform,
+                                );
+                                if (isAlreadySaved)
+                                    toast.error(
+                                        `You Have Already Saved An API Key For ${platform}, Delete It First To Save A New API Key!`,
+                                    );
+                                else {
+                                    const encryptedCode = encryptApiKey(input);
+                                    setIsLoading(true);
+                                    type ModelPlatform = "Gemini" | "GetImgAI";
+                                    const modelPlatform =
+                                        model as ModelPlatform; // telling model is type ModelPlatform
+                                    const res = await saveAPIKey(
+                                        encryptedCode,
+                                        modelPlatform,
+                                    );
+                                    setIsLoading(false);
+                                    if (!res)
+                                        toast.error("Some Error Occured!");
+                                    else {
+                                        setKeyDidUpdate(true);
+                                        toast.success(
+                                            "API Key Saved Successfully!",
+                                        );
+                                        await retrieveUserApiKeys();
+                                        setSaveButtonVisible(false);
+                                        setInput("");
+                                    }
+                                }
+                            }}
+                        >
+                            Save
+                        </button>
+                    ) : (
+                        ""
+                    )}
+                </div>
+                <div>Connected API Keys - </div>
+
+                <div>
+                    {userKeys.map((e: any, index: any) => (
+                        <PlatformButton
+                            key={index}
+                            platform={e.platform}
+                            apiKey={e.API_Key}
+                            deleteAPIKey={deleteAPIKey}
+                            savedKeys={retrieveUserApiKeys}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     );
