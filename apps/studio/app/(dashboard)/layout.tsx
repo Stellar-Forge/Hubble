@@ -6,6 +6,8 @@ import {
 } from "@hubble/ui/Icons";
 
 import { SidebarItem } from "@hubble/ui/SidebarItem";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 export default function Layout({
     children,
@@ -51,7 +53,7 @@ export default function Layout({
                     </div>
                 </div>
             </div>
-            {children}
+            <Suspense fallback={<Loading />}>{children}</Suspense>
         </div>
     );
 }
