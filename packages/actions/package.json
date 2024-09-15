@@ -14,10 +14,11 @@
     },
     "exports": {
         "./checkAuth": "./src/checkAuth.ts",
-        "./checkAddedKeys": "./src/checkAddedKeys.ts",
+        "./retrieveAPI": "./src/retrieveAPI.ts",
         "./manageAPIKeys": "./src/manageAPI.ts",
         "./saveResult": "./src/saveResult.ts",
         "./TextPrompt": "./src/sendPrompt.ts",
-        "./signup": "./src/signup.ts"
+        "./signup": "./src/signup.ts",
+        "./getUserInfo": "./src/getUserInfo.ts"
     }
 }
