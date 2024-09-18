@@ -46,7 +46,7 @@ Once you've crafted your AI masterpiece, share it with the world:
 
 Hubble's architecture is designed for scalability, performance, and seamless integration with various AI models. Here's an overview of our system:
 
-<img src="https://i.ibb.co/C7XSnyy/Screenshot-from-2024-08-09-17-57-50.png" alt="Screenshot-from-2024-08-09-17-57-50" border="0">
+<img src="https://i.ibb.co/x2kXPHQ/Screenshot-from-2024-09-16-02-24-17.png" alt="Hubble Architecture" border="0">
 
 ## 🛠 Technology Stack
 
@@ -56,11 +56,12 @@ Hubble's architecture is designed for scalability, performance, and seamless int
 -   Authentication: NextAuth.js
 
 -   Web-Hook: Express
+-   Websoket Server: Express (ws)
 
 -   Database:
 
     -   PostgreSQL with Prisma ORM
-    -   Object Store: S3 with CDN (Cloudfront)
+    -   Object Store: S3
 
 -   AI Integration: OpenAI, Midjourney, Gemini, DALL-E, and more
 
